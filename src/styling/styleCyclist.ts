@@ -1,19 +1,17 @@
-import LightColorSchemeFactory from "./color-scheme-providers/LightColorSchemeFactory";
-import DarkColorSchemeFactory from "./color-scheme-providers/DarkColorSchemeFactory";
-import GirlyColorSchemeFactory from "./color-scheme-providers/GirlyColorSchemeFactory";
-import EdgyColorSchemeFactory from "./color-scheme-providers/EdgyColorSchemeFactory";
-import NatureColorSchemeFactory from "./color-scheme-providers/NatureColorSchemeFactory";
-import BeehiveColorSchemeFactory from "./color-scheme-providers/BeehiveColorSchemeFactory";
-import EyeSoreColorSchemeFactory from "./color-scheme-providers/EyeSoreColorSchemeFactory";
+import LightColorSchemeProvider from "./color-scheme-providers/LightColorSchemeProvider";
+import DarkColorSchemeProvider from "./color-scheme-providers/DarkColorSchemeProvider";
+import GirlyColorSchemeProvider from "./color-scheme-providers/GirlyColorSchemeProvider";
+import EdgyColorSchemeProvider from "./color-scheme-providers/EdgyColorSchemeProvider";
+import NatureColorSchemeProvider from "./color-scheme-providers/NatureColorSchemeProvider";
+import BeehiveColorSchemeProvider from "./color-scheme-providers/BeehiveColorSchemeProvider";
 
 const styleFactories = [
-    DarkColorSchemeFactory,
-    LightColorSchemeFactory,
-    GirlyColorSchemeFactory,
-    EdgyColorSchemeFactory,
-    NatureColorSchemeFactory,
-    BeehiveColorSchemeFactory,
-    EyeSoreColorSchemeFactory
+    DarkColorSchemeProvider,
+    LightColorSchemeProvider,
+    GirlyColorSchemeProvider,
+    EdgyColorSchemeProvider,
+    NatureColorSchemeProvider,
+    BeehiveColorSchemeProvider
 ];
 
 let currentIndex = 1;

@@ -1,8 +1,8 @@
-interface IColorSchemeFactory {
+interface IColorSchemeProvider {
     textColor: () => string;
     backgroundColor: () => string;
     accentColor: () => string;
     headerBgColor: () => string;
 }
 
-export default IColorSchemeFactory;
+export default IColorSchemeProvider;

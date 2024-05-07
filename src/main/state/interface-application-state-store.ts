@@ -1,6 +1,6 @@
 import ITask from "./interface-task";
 import ISubtask from "./interface-subtask";
-import IColorSchemeFactory from "../../styling/IColorSchemeFactory";
+import IColorSchemeProvider from "../../styling/IColorSchemeProvider";
 
 export default interface ApplicationState {
     tasks: ITask[];
@@ -47,7 +47,7 @@ export default interface ApplicationState {
 
     setLatestPage(id: number): void;
 
-    styleFactory: IColorSchemeFactory
+    styleFactory: IColorSchemeProvider
 
-    setStyleFactory(instance: IColorSchemeFactory): void;
+    setStyleFactory(instance: IColorSchemeProvider): void;
 }

@@ -2,8 +2,8 @@ import {create} from 'zustand'
 import ITask from "./interface-task";
 import ISubtask from "./interface-subtask";
 import ApplicationState from "./interface-application-state-store";
-import DarkColorSchemeFactory from "../../styling/color-scheme-providers/DarkColorSchemeFactory";
-import IColorSchemeFactory from "../../styling/IColorSchemeFactory";
+import DarkColorSchemeProvider from "../../styling/color-scheme-providers/DarkColorSchemeProvider";
+import IColorSchemeProvider from "../../styling/IColorSchemeProvider";
 
 const useAppStateStore = create<ApplicationState>((set) => ({
     tasks: [],
@@ -28,7 +28,7 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     setServerDown: (value) => set({serverDown: value}),
     latestPage: 0,
     setLatestPage: (id) => set({latestPage: id}),
-    styleFactory: DarkColorSchemeFactory.instantiate(),
-    setStyleFactory: (instance: IColorSchemeFactory) => set({styleFactory: instance})
+    styleFactory: DarkColorSchemeProvider.instantiate(),
+    setStyleFactory: (instance: IColorSchemeProvider) => set({styleFactory: instance})
 }));
 export default useAppStateStore;
