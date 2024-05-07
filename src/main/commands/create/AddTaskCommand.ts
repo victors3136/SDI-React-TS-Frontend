@@ -1,19 +1,19 @@
-import ITask from "../state/interface-task";
-import Task from "../state/task";
+import ITask from "../../state/interface-task";
+import Task from "../../state/task";
 import {AxiosResponse} from "axios";
-import ApplicationState from "../state/interface-application-state-store";
-import addTaskToState from "../state/utils/addTaskToState";
-import HTTPRequestCommandBase from "./HTTPRequestCommandBase";
+import ApplicationState from "../../state/interface-application-state-store";
+import addTaskToState from "../../state/utils/addTaskToState";
+import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 
 class AddTaskCommand extends HTTPRequestCommandBase {
-    private task: ITask;
+    protected task: ITask;
 
     public constructor(data: object) {
         super();
         this.task = new Task(data);
     }
 
-    execute(state: ApplicationState) {
+    request(state: ApplicationState) {
         this.client
             .post('/task', this.task)
             .then((response: AxiosResponse<{ id: number }>) => {
@@ -25,10 +25,12 @@ class AddTaskCommand extends HTTPRequestCommandBase {
                     dueDate: this.task.dueDate
                 });
                 state.setServerDown(false);
-                addTaskToState(state, this.task);
             })
-            .catch(err => this.handleError(state, err));
+            .catch(err => this.handleError(state, err))
+            .finally(() => this.syncIfNotRetrying(state));
     };
+
+    localSync = (state: ApplicationState) => addTaskToState(state, this.task);
 }
 
 export default AddTaskCommand;

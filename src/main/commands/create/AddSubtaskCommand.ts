@@ -1,9 +1,10 @@
-import ApplicationState from "../state/interface-application-state-store";
-import ISubtask from "../state/interface-subtask";
-import Subtask from "../state/subtask";
-import addSubtaskToState from "../state/utils/addSubtaskToState";
-import HTTPRequestCommandBase from "./HTTPRequestCommandBase";
+import ApplicationState from "../../state/interface-application-state-store";
+import ISubtask from "../../state/interface-subtask";
+import Subtask from "../../state/subtask";
+import addSubtaskToState from "../../state/utils/addSubtaskToState";
+import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import {AxiosResponse} from "axios";
+import subtask from "../../state/subtask";
 
 class AddSubtaskCommand extends HTTPRequestCommandBase {
     private subtask: ISubtask;
@@ -13,7 +14,7 @@ class AddSubtaskCommand extends HTTPRequestCommandBase {
         this.subtask = new Subtask(data);
     }
 
-    public execute = (state: ApplicationState) =>
+    request = (state: ApplicationState) =>
         this.client
             .post('/task', this.subtask)
             .then((response: AxiosResponse<{ id: number }>) => {
@@ -23,9 +24,12 @@ class AddSubtaskCommand extends HTTPRequestCommandBase {
                     task: this.subtask.task,
                 });
                 state.setServerDown(false);
-                addSubtaskToState(state, this.subtask);
+                this.localSync(state);
             })
-            .catch(err => this.handleError(state, err));
+            .catch(err => this.handleError(state, err))
+            .finally(() => this.syncIfNotRetrying(state));
+
+    localSync = (state: ApplicationState) => addSubtaskToState(state, this.subtask)
 }
 
 export default AddSubtaskCommand;

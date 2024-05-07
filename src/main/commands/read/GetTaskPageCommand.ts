@@ -1,8 +1,8 @@
-import HTTPRequestCommandBase from "./HTTPRequestCommandBase";
-import ApplicationState from "../state/interface-application-state-store";
-import Task from "../state/task";
-import addMultipleTasksToState from "../state/utils/addMultipleTasksToState";
-import ITask from "../state/interface-task";
+import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
+import ApplicationState from "../../state/interface-application-state-store";
+import Task from "../../state/task";
+import addMultipleTasksToState from "../../state/utils/addMultipleTasksToState";
+import ITask from "../../state/interface-task";
 
 class GetTaskPageCommand extends HTTPRequestCommandBase {
     private pageNumber: number;
@@ -12,7 +12,7 @@ class GetTaskPageCommand extends HTTPRequestCommandBase {
         this.pageNumber = pageNum ?? 0;
     }
 
-    public execute = (state: ApplicationState) =>
+    request = (state: ApplicationState) =>
         this.client
             .get(`/task/all/${this.pageNumber}`)
             .then(response => {
@@ -20,6 +20,10 @@ class GetTaskPageCommand extends HTTPRequestCommandBase {
                 addMultipleTasksToState(state, list);
             })
             .catch(err => this.handleError(state, err));
+
+    localSync = (state: ApplicationState) => {
+        console.log("No more pages could be loaded");
+    }
 }
 
 export default GetTaskPageCommand;
