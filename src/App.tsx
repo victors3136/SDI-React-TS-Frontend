@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {JSXElementConstructor} from 'react';
+import './styling/App.css';
+import useAppStateStore from "./main/state/application-state-store";
+import Header from "./main/Header";
+import styleCyclist from "./styling/styleCyclist";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App: JSXElementConstructor<any> = () => {
+    const state = useAppStateStore();
+    const styleProvider = state.styleFactory;
+    return (
+        <div className='App'
+             style={{
+                 color: styleProvider.textColor(),
+                 background: styleProvider.backgroundColor(),
+                 borderColor: styleProvider.accentColor(),
+                 boxShadow: styleProvider.accentColor()
+             }}>
+            <Header/>
+            <div className="inherit-color-scheme">
+                <button onClick={() => state.setStyleFactory(styleCyclist().instantiate())}
+                        className="inherit-color-scheme">
+                    Change style
+                </button>
+            </div>
+        </div>
+    );
 }
 
 export default App;
