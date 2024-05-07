@@ -50,4 +50,8 @@ export default interface ApplicationState {
     styleFactory: IColorSchemeProvider
 
     setStyleFactory(instance: IColorSchemeProvider): void;
+
+    subtaskCount: number;
+
+    setSubtaskCount(count: number): void;
 }

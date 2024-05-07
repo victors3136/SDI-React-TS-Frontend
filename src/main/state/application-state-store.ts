@@ -29,6 +29,8 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     latestPage: 0,
     setLatestPage: (id) => set({latestPage: id}),
     styleFactory: DarkColorSchemeProvider.instantiate(),
-    setStyleFactory: (instance: IColorSchemeProvider) => set({styleFactory: instance})
+    setStyleFactory: (instance: IColorSchemeProvider) => set({styleFactory: instance}),
+    subtaskCount: 0,
+    setSubtaskCount: (count: number) => set({subtaskCount: count})
 }));
 export default useAppStateStore;
