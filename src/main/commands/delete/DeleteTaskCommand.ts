@@ -1,7 +1,7 @@
 import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import ApplicationState from "../../state/interface-application-state-store";
-import HTTPCode from "../../state/HTTPCode";
 import removeTask from "../../state/utils/removeTask";
+import {HttpStatusCode} from "axios";
 
 class DeleteTaskCommand extends HTTPRequestCommandBase {
     protected taskID: string;
@@ -16,12 +16,12 @@ class DeleteTaskCommand extends HTTPRequestCommandBase {
             .delete(`/task/${this.taskID}`)
             .then(response => {
                 switch (response.status) {
-                    case HTTPCode.OK:
+                    case HttpStatusCode.NoContent:
                         break;
-                    case HTTPCode.BAD_REQUEST:
+                    case HttpStatusCode.BadRequest:
                         state.setErrorMessage("Request failed server-side validation");
                         break;
-                    case HTTPCode.NOT_FOUND:
+                    case HttpStatusCode.NotFound:
                         state.setErrorMessage("Entry could not be found");
                         break;
                     default:

@@ -31,6 +31,9 @@ abstract class HTTPRequestCommandBase implements ICommand {
     }
 
     protected retry(state: ApplicationState) {
+        if (this.retrying) {
+            return;
+        }
         this.retrying = true;
         const retryInterval = setInterval(() => {
             this.request(state);

@@ -16,7 +16,9 @@ class GetTaskPageCommand extends HTTPRequestCommandBase {
         this.client
             .get(`/task/all/${this.pageNumber}`)
             .then(response => {
-                const list: ITask[] = response.data.content.map((dataChunk: object) => new Task(dataChunk));
+                const list: ITask[] =
+                    response.data.content.map((jsonChunk: object) =>
+                        new Task(jsonChunk));
                 addMultipleTasksToState(state, list);
             })
             .catch(err => this.handleError(state, err));

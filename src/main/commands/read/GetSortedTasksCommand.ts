@@ -2,7 +2,6 @@ import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import ApplicationState from "../../state/interface-application-state-store";
 import ITask from "../../state/interface-task";
 import Task from "../../state/task";
-import addMultipleTasksToState from "../../state/utils/addMultipleTasksToState";
 import setTasks from "../../state/utils/setTasks";
 
 class GetSortedTasksCommand extends HTTPRequestCommandBase {
@@ -17,7 +16,9 @@ class GetSortedTasksCommand extends HTTPRequestCommandBase {
         this.client
             .get(`/task?priority=/${this.orderingDirection}`)
             .then(response => {
-                const sortedListOfTasks: ITask[] = response.data.content.map((dataChunk: object) => new Task(dataChunk));
+                const sortedListOfTasks: ITask[] =
+                    response.data.content.map((jsonChunk: object) =>
+                        new Task(jsonChunk));
                 state.setTasks(sortedListOfTasks);
             })
             .catch(err => this.handleError(state, err));

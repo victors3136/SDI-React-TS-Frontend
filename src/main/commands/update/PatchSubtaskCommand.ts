@@ -1,39 +1,41 @@
 import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import ApplicationState from "../../state/interface-application-state-store";
-import removeTasks from "../../state/utils/removeTasks";
 import {HttpStatusCode} from "axios";
+import editSubtask from "../../state/utils/editSubtask";
+import ISubtask from "../../state/interface-subtask";
 
-class DeleteTaskCommand extends HTTPRequestCommandBase {
-    protected taskIDS: string[];
+class PatchSubtaskCommand extends HTTPRequestCommandBase {
+    protected baseSubtaskID: string;
+    protected updatedSubtask: ISubtask;
 
-    public constructor(taskIDS: string[]) {
+    public constructor(baseSubtaskID: string, updatedSubtask: ISubtask) {
         super();
-        this.taskIDS = taskIDS;
+        this.baseSubtaskID = baseSubtaskID;
+        this.updatedSubtask = updatedSubtask;
     }
 
     request = (state: ApplicationState) =>
         this.client
-            .delete('/task/batch', {data: this.taskIDS})
+            .patch(`subtask/${this.baseSubtaskID}`, {data: this.updatedSubtask})
             .then(response => {
                 switch (response.status) {
-                    case HttpStatusCode.NoContent:
+                    case HttpStatusCode.Ok:
+                        editSubtask(state, this.updatedSubtask);
                         break;
                     case HttpStatusCode.BadRequest:
                         state.setErrorMessage("Request failed server-side validation");
-                        break;
+                        break
                     case HttpStatusCode.NotFound:
                         state.setErrorMessage("Entry could not be found");
                         break;
                     default:
                         throw new Error(`Unhandled response code: ${response.status}`);
                 }
-                this.localSync(state);
             })
             .catch(err => this.handleError(state, err));
-
     localSync = (state: ApplicationState) => {
-        removeTasks(state, this.taskIDS);
+        editSubtask(state, this.updatedSubtask);
     }
 }
 
-export default DeleteTaskCommand;
+export default PatchSubtaskCommand;

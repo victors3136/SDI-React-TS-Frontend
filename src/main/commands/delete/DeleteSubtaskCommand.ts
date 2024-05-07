@@ -1,19 +1,20 @@
 import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import ApplicationState from "../../state/interface-application-state-store";
-import removeTasks from "../../state/utils/removeTasks";
 import {HttpStatusCode} from "axios";
+import removeTask from "../../state/utils/removeTask";
+import removeSubtask from "../../state/utils/removeSubtask";
 
-class DeleteTaskCommand extends HTTPRequestCommandBase {
-    protected taskIDS: string[];
+class DeleteSubtaskCommand extends HTTPRequestCommandBase {
+    protected subtaskID: string;
 
-    public constructor(taskIDS: string[]) {
+    public constructor(subtaskID: string) {
         super();
-        this.taskIDS = taskIDS;
+        this.subtaskID = subtaskID;
     }
 
     request = (state: ApplicationState) =>
         this.client
-            .delete('/task/batch', {data: this.taskIDS})
+            .delete(`/subtask/${this.subtaskID}`)
             .then(response => {
                 switch (response.status) {
                     case HttpStatusCode.NoContent:
@@ -32,8 +33,8 @@ class DeleteTaskCommand extends HTTPRequestCommandBase {
             .catch(err => this.handleError(state, err));
 
     localSync = (state: ApplicationState) => {
-        removeTasks(state, this.taskIDS);
+        removeSubtask(state, this.subtaskID);
     }
 }
 
-export default DeleteTaskCommand;
+export default DeleteSubtaskCommand;

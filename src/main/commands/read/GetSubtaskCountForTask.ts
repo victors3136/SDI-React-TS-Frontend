@@ -1,39 +1,35 @@
 import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import ApplicationState from "../../state/interface-application-state-store";
-import removeTasks from "../../state/utils/removeTasks";
 import {HttpStatusCode} from "axios";
 
-class DeleteTaskCommand extends HTTPRequestCommandBase {
-    protected taskIDS: string[];
+class GetSubtaskCountForTask extends HTTPRequestCommandBase {
+    protected taskId: string;
 
-    public constructor(taskIDS: string[]) {
+    public constructor(taskId: string) {
         super();
-        this.taskIDS = taskIDS;
+        this.taskId = taskId;
     }
 
     request = (state: ApplicationState) =>
         this.client
-            .delete('/task/batch', {data: this.taskIDS})
+            .get(`/task/count/${this.taskId}`)
             .then(response => {
                 switch (response.status) {
-                    case HttpStatusCode.NoContent:
+                    case HttpStatusCode.Ok:
+                        state.setSubtaskCount(response.data);
                         break;
                     case HttpStatusCode.BadRequest:
                         state.setErrorMessage("Request failed server-side validation");
                         break;
                     case HttpStatusCode.NotFound:
-                        state.setErrorMessage("Entry could not be found");
+                        state.setErrorMessage("Entity could not be found");
                         break;
                     default:
                         throw new Error(`Unhandled response code: ${response.status}`);
                 }
-                this.localSync(state);
             })
             .catch(err => this.handleError(state, err));
-
     localSync = (state: ApplicationState) => {
-        removeTasks(state, this.taskIDS);
+        console.log("No children could be ");
     }
 }
-
-export default DeleteTaskCommand;
