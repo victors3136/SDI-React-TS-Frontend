@@ -16,7 +16,7 @@ class PostTaskCommand extends HTTPRequestCommandBase {
     request(state: ApplicationState) {
         this.client
             .post('/task', this.task)
-            .then((response: AxiosResponse<{ id: number }>) => {
+            .then((response: AxiosResponse<{ id: string }>) => {
                 switch (response.status) {
                     case HttpStatusCode.Created:
                         this.task = new Task({

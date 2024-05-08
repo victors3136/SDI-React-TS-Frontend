@@ -16,7 +16,7 @@ class PostSubtaskCommand extends HTTPRequestCommandBase {
     request = (state: ApplicationState) =>
         this.client
             .post('/subtask', this.subtask)
-            .then((response: AxiosResponse<{ id: number }>) => {
+            .then((response: AxiosResponse<{ id: string }>) => {
                 switch (response.status) {
                     case HttpStatusCode.Created:
                         this.subtask = new Subtask({
