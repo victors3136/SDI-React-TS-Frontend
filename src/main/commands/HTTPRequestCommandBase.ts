@@ -5,7 +5,7 @@ import ICommand from "./ICommand";
 
 abstract class HTTPRequestCommandBase implements ICommand {
 
-    private static readonly retryInterval: number = 5_000;
+    private static readonly retryIntervalSpan: number = 5_000;
 
     protected client: IHTTPClient;
     protected retrying: boolean;
@@ -40,7 +40,7 @@ abstract class HTTPRequestCommandBase implements ICommand {
             if (!state.serverDown) {
                 clearInterval(retryInterval);
             }
-        }, HTTPRequestCommandBase.retryInterval);
+        }, HTTPRequestCommandBase.retryIntervalSpan);
     };
 
     protected syncIfNotRetrying = (state: ApplicationState) => {

@@ -15,11 +15,11 @@ export default interface ApplicationState {
 
     setErrorMessage(message: string): void;
 
-    viewedTask: ITask;
+    viewedTask: ITask | undefined;
 
     setViewedTask(task: ITask): void;
 
-    editedTask: ITask;
+    editedTask: ITask | undefined;
 
     setEditedTask(task: ITask): void;
 
@@ -27,11 +27,11 @@ export default interface ApplicationState {
 
     setAddingTask(value: boolean): void;
 
-    viewedSubtask: ISubtask;
+    viewedSubtask: ISubtask | undefined;
 
     setViewedSubtask(subtask: ISubtask): void;
 
-    editedSubtask: ISubtask;
+    editedSubtask: ISubtask | undefined;
 
     setEditedSubtask(subtask: ISubtask): void;
 
@@ -47,9 +47,9 @@ export default interface ApplicationState {
 
     setLatestPage(id: number): void;
 
-    styleFactory: IColorSchemeProvider
+    colorSchemeProvider: IColorSchemeProvider
 
-    setStyleFactory(instance: IColorSchemeProvider): void;
+    setColorSchemeProvider(instance: IColorSchemeProvider): void;
 
     subtaskCount: number;
 

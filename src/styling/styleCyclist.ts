@@ -5,21 +5,21 @@ import EdgyColorSchemeProvider from "./color-scheme-providers/EdgyColorSchemePro
 import NatureColorSchemeProvider from "./color-scheme-providers/NatureColorSchemeProvider";
 import BeehiveColorSchemeProvider from "./color-scheme-providers/BeehiveColorSchemeProvider";
 
-const styleFactories = [
-    DarkColorSchemeProvider,
-    LightColorSchemeProvider,
-    GirlyColorSchemeProvider,
-    EdgyColorSchemeProvider,
-    NatureColorSchemeProvider,
-    BeehiveColorSchemeProvider
+const colorSchemeProviders = [
+    DarkColorSchemeProvider.instantiate(),
+    LightColorSchemeProvider.instantiate(),
+    GirlyColorSchemeProvider.instantiate(),
+    EdgyColorSchemeProvider.instantiate(),
+    NatureColorSchemeProvider.instantiate(),
+    BeehiveColorSchemeProvider.instantiate()
 ];
 
 let currentIndex = 1;
 
 const styleCyclist = () => {
-    const currentStyleFactory = styleFactories[currentIndex];
-    currentIndex = (currentIndex + 1) % styleFactories.length;
-    return currentStyleFactory;
+    const currentColorSchemeProvider = colorSchemeProviders[currentIndex];
+    currentIndex = (currentIndex + 1) % colorSchemeProviders.length;
+    return currentColorSchemeProvider;
 };
 
 export default styleCyclist;

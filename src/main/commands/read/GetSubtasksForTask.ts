@@ -36,3 +36,4 @@ class GetSubtasksForTask extends HTTPRequestCommandBase {
         console.log("No children could be ");
     }
 }
+export default GetSubtasksForTask;

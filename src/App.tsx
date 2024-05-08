@@ -1,12 +1,11 @@
-import React, {JSXElementConstructor} from 'react';
+import React from 'react';
 import './styling/App.css';
 import useAppStateStore from "./main/state/application-state-store";
-import Header from "./main/Header";
-import styleCyclist from "./styling/styleCyclist";
+import {Main} from "./main/Main";
 
-const App: JSXElementConstructor<any> = () => {
+const App: React.FC<any> = () => {
     const state = useAppStateStore();
-    const styleProvider = state.styleFactory;
+    const styleProvider = state.colorSchemeProvider;
     return (
         <div className='App'
              style={{
@@ -15,13 +14,7 @@ const App: JSXElementConstructor<any> = () => {
                  borderColor: styleProvider.accentColor(),
                  boxShadow: styleProvider.accentColor()
              }}>
-            <Header/>
-            <div className="inherit-color-scheme">
-                <button onClick={() => state.setStyleFactory(styleCyclist().instantiate())}
-                        className="inherit-color-scheme">
-                    Change style
-                </button>
-            </div>
+            <Main state={state}/>
         </div>
     );
 }

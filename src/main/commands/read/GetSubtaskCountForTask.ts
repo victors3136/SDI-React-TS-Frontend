@@ -33,3 +33,4 @@ class GetSubtaskCountForTask extends HTTPRequestCommandBase {
         console.log("No children could be ");
     }
 }
+export default GetSubtaskCountForTask;
