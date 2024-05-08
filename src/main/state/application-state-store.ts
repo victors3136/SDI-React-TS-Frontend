@@ -1,6 +1,4 @@
 import {create} from 'zustand'
-import ITask from "./interface-task";
-import ISubtask from "./interface-subtask";
 import ApplicationState from "./interface-application-state-store";
 import DarkColorSchemeProvider from "../../styling/color-scheme-providers/DarkColorSchemeProvider";
 import IColorSchemeProvider from "../../styling/IColorSchemeProvider";
@@ -12,15 +10,15 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     setSubtasks: (subtasks) => set({subtasks}),
     errorMessage: '',
     setErrorMessage: (message) => set({errorMessage: message}),
-    viewedTask: {} as ITask,
+    viewedTask: undefined,
     setViewedTask: (task) => set({viewedTask: task}),
-    editedTask: {} as ITask,
+    editedTask: undefined,
     setEditedTask: (task) => set({editedTask: task}),
     addingTask: false,
     setAddingTask: (value) => set({addingTask: value}),
-    viewedSubtask: {} as ISubtask,
+    viewedSubtask: undefined,
     setViewedSubtask: (subtask) => set({viewedSubtask: subtask}),
-    editedSubtask: {} as ISubtask,
+    editedSubtask: undefined,
     setEditedSubtask: (subtask) => set({editedSubtask: subtask}),
     addingSubtask: false,
     setAddingSubtask: (value) => set({addingSubtask: value}),
@@ -28,8 +26,8 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     setServerDown: (value) => set({serverDown: value}),
     latestPage: 0,
     setLatestPage: (id) => set({latestPage: id}),
-    styleFactory: DarkColorSchemeProvider.instantiate(),
-    setStyleFactory: (instance: IColorSchemeProvider) => set({styleFactory: instance}),
+    colorSchemeProvider: DarkColorSchemeProvider.instantiate(),
+    setColorSchemeProvider: (instance: IColorSchemeProvider) => set({colorSchemeProvider: instance}),
     subtaskCount: 0,
     setSubtaskCount: (count: number) => set({subtaskCount: count})
 }));
