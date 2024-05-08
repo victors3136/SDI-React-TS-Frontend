@@ -14,7 +14,7 @@ const App: React.FC<any> = () => {
                  borderColor: styleProvider.accentColor(),
                  boxShadow: styleProvider.accentColor()
              }}>
-            <Main state={state}/>
+            <Main/>
         </div>
     );
 }
