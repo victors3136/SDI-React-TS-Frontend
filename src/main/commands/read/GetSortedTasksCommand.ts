@@ -13,15 +13,18 @@ class GetSortedTasksCommand extends HTTPRequestCommandBase {
         this.orderingDirection = orderingDirection ?? "DES";
     }
 
-    request = (state: ApplicationState) =>
+    request = (state: ApplicationState) => {
+        console.log("Getting sorted tasks");
         this.client
-            .get(`/task?priority=/${this.orderingDirection}`)
+            .get(`/task?priority=${this.orderingDirection}`)
             .then(response => {
+                console.log(response);
                 const sortedListOfTasks: ITask[] =
-                    response.data.content.map((jsonChunk: TaskBase) => new Task(jsonChunk));
+                    response.data.map((jsonChunk: TaskBase) => new Task(jsonChunk));
                 state.setTasks(sortedListOfTasks);
             })
             .catch(err => this.handleError(state, err));
+    }
 
     protected handleError(state: ApplicationState, err: Error) {
         super.handleError(state, err);

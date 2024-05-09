@@ -16,12 +16,12 @@ const hexToRgb: (hex: string) => number[] = (hex) => {
     return [red, green, blue];
 }
 
-export const priorityColorProvider = (task: ITask, colorSchemeProvider: IColorSchemeProvider) => {
+export const priorityColorProvider = (taskPriority: number, colorSchemeProvider: IColorSchemeProvider) => {
 
     const minColor: number[] = hexToRgb(colorSchemeProvider.minPriorityColor());
     const maxColor: number[] = hexToRgb(colorSchemeProvider.maxPriorityColor());
 
-    const normalizedPriority: number = (task.priority - 1) / 9;
+    const normalizedPriority: number = (taskPriority - 1) / 9;
     const red: number = Math.floor(minColor[RED] + normalizedPriority * (maxColor[RED] - minColor[RED]));
     const green: number = Math.floor(minColor[BLUE] + normalizedPriority * (maxColor[BLUE] - minColor[BLUE]));
     const blue: number = Math.floor(minColor[GREEN] + normalizedPriority * (maxColor[GREEN] - minColor[GREEN]));

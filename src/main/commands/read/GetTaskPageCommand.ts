@@ -13,7 +13,8 @@ class GetTaskPageCommand extends HTTPRequestCommandBase {
         this.pageNumber = pageNum ?? 0;
     }
 
-    request = (state: ApplicationState) =>
+    request = (state: ApplicationState) => {
+        console.log("Requesting a page of tasks");
         this.client
             .get(`/task/all/${this.pageNumber}`)
             .then(response => {
@@ -23,7 +24,7 @@ class GetTaskPageCommand extends HTTPRequestCommandBase {
                 state.setLatestPage(state.latestPage + 1);
             })
             .catch(err => this.handleError(state, err));
-
+    }
     localSync = (state: ApplicationState) => {
         console.log("No more pages could be loaded");
     }

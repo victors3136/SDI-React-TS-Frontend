@@ -8,6 +8,7 @@ class BeehiveColorSchemeProvider implements IColorSchemeProvider {
     headerBgColor = () => "#d8ad00";
     maxPriorityColor = () => "#9c2b00";
     minPriorityColor = () => "#85752e";
+    errorColor = () => "#ff0000";
     private static instance: IColorSchemeProvider;
 
     static instantiate = () => {

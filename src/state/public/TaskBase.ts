@@ -1,7 +1,7 @@
 interface TaskBase {
     id?: string,
     name: string,
-    description: string | undefined,
+    description: string | null,
     priority: number,
     dueDate?: Date
 }

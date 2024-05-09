@@ -1,4 +1,6 @@
-export default interface ITask {
+import TaskBase from "./TaskBase";
+
+export default interface ITask extends TaskBase {
 
     get id(): string;
 

@@ -1,4 +1,6 @@
-export default interface ISubtask {
+import SubtaskBase from "./SubtaskBase";
+
+export default interface ISubtask extends SubtaskBase {
 
     get id(): string;
 

@@ -8,6 +8,7 @@ class EdgyColorSchemeProvider implements IColorSchemeProvider {
     headerBgColor = () => "#555454";
     maxPriorityColor = () => "#610101";
     minPriorityColor = () => "#064200";
+    errorColor = () => "#e1e1e1";
 
     private static instance: IColorSchemeProvider;
 

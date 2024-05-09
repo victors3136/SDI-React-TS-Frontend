@@ -8,6 +8,7 @@ class LightColorSchemeProvider implements IColorSchemeProvider {
     headerBgColor = () => "#c98f37";
     maxPriorityColor = () => "#c63737";
     minPriorityColor = () => "#cdcbcb";
+    errorColor = () => "#00a9d1";
 
     private static instance: IColorSchemeProvider;
 

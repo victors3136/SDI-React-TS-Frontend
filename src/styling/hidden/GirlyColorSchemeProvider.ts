@@ -8,6 +8,7 @@ class GirlyColorSchemeProvider implements IColorSchemeProvider {
     headerBgColor = () => "#8d56b6";
     maxPriorityColor = () => "#710050";
     minPriorityColor = () => "#442b91";
+    errorColor = () => "#ff01e4";
 
     private static instance: IColorSchemeProvider;
 

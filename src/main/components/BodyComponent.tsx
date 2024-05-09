@@ -5,8 +5,8 @@ import {TaskAddComponent} from "./Body/TaskAddComponent";
 import {TaskEditComponent} from "./Body/TaskEditComponent";
 import ApplicationState from "../../state/public/ApplicationStateType";
 import {TaskViewComponent} from "./Body/TaskViewComponent";
+import {ErrorViewComponent} from "./Body/ErrorViewComponent";
 
-const ErrorViewComponent = () => <></>
 const SubtaskViewComponent = () => <></>;
 const SubtaskAddComponent = () => <></>;
 const SubtaskEditComponent = () => <></>;
