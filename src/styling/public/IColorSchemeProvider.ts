@@ -5,6 +5,7 @@ interface IColorSchemeProvider {
     headerBgColor: () => string;
     maxPriorityColor: () => string;
     minPriorityColor: () => string;
+    errorColor: () => string;
 }
 
 export default IColorSchemeProvider;

@@ -6,8 +6,9 @@ class NatureColorSchemeProvider implements IColorSchemeProvider {
     backgroundColor = () => "#558546";
     accentColor = () => "#ac4d04";
     headerBgColor = () => "#437500";
-    maxPriorityColor = () => "#7a9308";
-    minPriorityColor = () => "#714c16";
+    maxPriorityColor = () => "#d2ff00";
+    minPriorityColor = () => "#513100";
+    errorColor = () => "#cc3000";
 
     private static instance: IColorSchemeProvider;
 

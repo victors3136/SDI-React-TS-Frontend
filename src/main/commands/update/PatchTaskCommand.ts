@@ -14,7 +14,9 @@ class PatchTaskCommand extends HTTPRequestCommandBase {
         this.updatedTask = updatedTask;
     }
 
-    request = (state: ApplicationState) =>
+    request = (state: ApplicationState) => {
+        console.log(this.baseTaskID);
+        console.log(JSON.stringify(this.updatedTask));
         this.client
             .patch(`task/${this.baseTaskID}`, {data: this.updatedTask})
             .then(response => {
@@ -33,6 +35,7 @@ class PatchTaskCommand extends HTTPRequestCommandBase {
                 }
             })
             .catch(err => this.handleError(state, err));
+    }
     localSync = (state: ApplicationState) => {
         editTask(state, this.updatedTask);
     }
