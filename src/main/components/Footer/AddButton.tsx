@@ -1,13 +1,13 @@
 import React from "react";
-import useAppStateStore from "../../state/application-state-store";
 import {BiPlus} from 'react-icons/bi';
+import useAppStateStore from "../../state/hidden/ApplicationStateStore";
 
 export const AddButton = () => {
     const state = useAppStateStore();
-    return (
-        <button onClick={() => state.setAddingTask(true)}
-                className="inherit-color-scheme Only-Icon-Button Footer-Button">
+    return <button onClick={() => {
+            state.setAddingTask(true)
+        }}
+                className="Footer-Button Only-Icon-Button inherit-color-scheme">
             <BiPlus className="Larger-Icon"/>
-        </button>
-    );
+        </button>;
 };

@@ -1,0 +1,50 @@
+
+.Div-Covering-The-Whole-Screen-Semitransparent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.Div-Covering-The-Whole-Screen-Semitransparent > div {
+    background-color: #3c464f;
+    color: silver;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 400px;
+    overflow: auto;
+    word-break: break-all;
+    border: 3px black solid;
+}
+
+.Div-Covering-The-Whole-Screen-Semitransparent div div {
+    display: inline-flex;
+    width: 350px;
+}
+
+.Div-Covering-The-Whole-Screen-Semitransparent div div button {
+    color: silver;
+}
+
+.Div-Covering-The-Whole-Screen-Semitransparent div form {
+    width: 100%
+}
+
+.Div-Covering-The-Whole-Screen-Semitransparent div form div {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.Div-Covering-The-Whole-Screen-Semitransparent div form div input {
+    width: max-content;
+    background-color: #2b3238;
+    color: silver;
+}

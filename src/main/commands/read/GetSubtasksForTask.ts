@@ -1,8 +1,8 @@
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
-import ApplicationState from "../../state/interface-application-state-store";
+import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import ApplicationState from "../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
-import Subtask from "../../state/subtask";
-import setSubtasks from "../../state/utils/setSubtasks";
+import Subtask from "../../state/hidden/Subtask";
+import setSubtasks from "../../state/public/utils/setSubtasks";
 
 class GetSubtasksForTask extends HTTPRequestCommandBase {
     protected taskId: string;

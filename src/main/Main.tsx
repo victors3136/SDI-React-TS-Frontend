@@ -1,6 +1,6 @@
 // noinspection JSVoidFunctionReturnValueUsed
 
-import useAppStateStore from "../../src/main/state/application-state-store";
+import useAppStateStore from "./state/hidden/ApplicationStateStore";
 import Header from "./components/HeaderComponent";
 import Body from "./components/BodyComponent";
 import Footer from "./components/FooterComponent";
@@ -9,10 +9,9 @@ import GetTaskPageCommand from "./commands/read/GetTaskPageCommand";
 
 export const Main = () => {
     const state = useAppStateStore();
-    console.log("Mainin");
     useEffect(() => {
-        console.log("YAAR");
         new GetTaskPageCommand().execute(state);
+        // eslint-disable-next-line
     }, []);
 
     return <>

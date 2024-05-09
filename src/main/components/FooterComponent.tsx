@@ -5,9 +5,10 @@ import {SortByPriorityASCButton} from "./Footer/SortByPriorityASCButton";
 import {SortByPriorityDESButton} from "./Footer/SortByPriorityDESButton";
 import {RemoveSelectedButton} from "./Footer/RemoveSelectedButton";
 import {ExportSelectedButton} from "./Footer/ExportSelectedButton";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const FooterComponent = () => {
-    return <nav className="inherit-color-scheme Footer">
+    return <nav className="Footer inherit-color-scheme fixed-bottom">
         <div
             style={{
                 height: "4rem",

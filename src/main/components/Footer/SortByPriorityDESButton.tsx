@@ -1,4 +1,4 @@
-import useAppStateStore from "../../state/application-state-store";
+import useAppStateStore from "../../state/hidden/ApplicationStateStore";
 import GetSortedTasksCommand from "../../commands/read/GetSortedTasksCommand";
 import React from "react";
 import {BiSortDown} from "react-icons/bi";

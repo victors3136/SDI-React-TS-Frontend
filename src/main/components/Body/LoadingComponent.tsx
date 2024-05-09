@@ -1,15 +1,15 @@
 import React from "react";
-import "../../../styling/Spinner.css";
-import useAppStateStore from "../../state/application-state-store";
+import "../../../styling/public/css/Spinner.css";
+import useAppStateStore from "../../state/hidden/ApplicationStateStore";
 
-const LoadingComponent = () => {
-    const provider = useAppStateStore().colorSchemeProvider;
+export const LoadingComponent = () => {
+    const state = useAppStateStore();
+    const colorSchemeProvider = state.colorSchemeProvider;
     return <div className="spinner-container">
         <div className="spinner"
              style={{
-                 borderColor: provider.textColor(),
-                 borderLeftColor: provider.accentColor()
+                 borderColor: colorSchemeProvider.textColor(),
+                 borderLeftColor: colorSchemeProvider.accentColor()
              }}/>
     </div>
 }
-export default LoadingComponent;

@@ -1,9 +1,9 @@
-import ITask from "../../state/interface-task";
-import Task from "../../state/task";
+import ITask from "../../state/public/ITask";
+import Task from "../../state/hidden/Task";
 import {AxiosResponse, HttpStatusCode} from "axios";
-import ApplicationState from "../../state/interface-application-state-store";
-import addTaskToState from "../../state/utils/addTaskToState";
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
+import ApplicationState from "../../state/public/ApplicationStateType";
+import addTaskToState from "../../state/public/utils/addTaskToState";
+import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
 
 class PostTaskCommand extends HTTPRequestCommandBase {
     protected task: ITask;

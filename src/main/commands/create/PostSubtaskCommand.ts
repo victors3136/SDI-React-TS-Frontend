@@ -1,8 +1,8 @@
-import ApplicationState from "../../state/interface-application-state-store";
-import ISubtask from "../../state/interface-subtask";
-import Subtask from "../../state/subtask";
-import addSubtaskToState from "../../state/utils/addSubtaskToState";
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
+import ApplicationState from "../../state/public/ApplicationStateType";
+import ISubtask from "../../state/public/ISubtask";
+import Subtask from "../../state/hidden/Subtask";
+import addSubtaskToState from "../../state/public/utils/addSubtaskToState";
+import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
 import {AxiosResponse, HttpStatusCode} from "axios";
 
 class PostSubtaskCommand extends HTTPRequestCommandBase {

@@ -1,8 +1,8 @@
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
-import ApplicationState from "../../state/interface-application-state-store";
-import ITask from "../../state/interface-task";
-import Task from "../../state/task";
-import setTasks from "../../state/utils/setTasks";
+import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import ApplicationState from "../../state/public/ApplicationStateType";
+import ITask from "../../state/public/ITask";
+import Task from "../../state/hidden/Task";
+import setTasks from "../../state/public/utils/setTasks";
 
 class GetSortedTasksCommand extends HTTPRequestCommandBase {
     private orderingDirection: string;

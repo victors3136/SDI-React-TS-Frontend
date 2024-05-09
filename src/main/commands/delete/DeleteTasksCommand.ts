@@ -1,6 +1,6 @@
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
-import ApplicationState from "../../state/interface-application-state-store";
-import removeTasks from "../../state/utils/removeTasks";
+import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import ApplicationState from "../../state/public/ApplicationStateType";
+import removeTasks from "../../state/public/utils/removeTasks";
 import {HttpStatusCode} from "axios";
 
 class DeleteTaskCommand extends HTTPRequestCommandBase {
