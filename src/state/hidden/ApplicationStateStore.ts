@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 import ApplicationState from "../public/ApplicationStateType";
-import DarkColorSchemeProvider from "../../../styling/hidden/DarkColorSchemeProvider";
-import IColorSchemeProvider from "../../../styling/public/IColorSchemeProvider";
+import DarkColorSchemeProvider from "../../styling/hidden/DarkColorSchemeProvider";
+import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
 
 const useAppStateStore = create<ApplicationState>((set) => ({
     tasks: [],
@@ -29,6 +29,8 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     colorSchemeProvider: DarkColorSchemeProvider.instantiate(),
     setColorSchemeProvider: (instance: IColorSchemeProvider) => set({colorSchemeProvider: instance}),
     subtaskCount: 0,
-    setSubtaskCount: (count: number) => set({subtaskCount: count})
+    setSubtaskCount: (count: number) => set({subtaskCount: count}),
+    selectedTaskIDs: new Set(),
+    setSelectedTaskIDs: (ids: Set<string>) => set({selectedTaskIDs: ids}),
 }));
 export default useAppStateStore;

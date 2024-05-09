@@ -1,6 +1,6 @@
 import IHTTPClient from "../../requests/public/IHTTPClient";
 import AxiosHTTPClientAdapter from "../../requests/public/AxiosHTTPClientAdapter";
-import ApplicationState from "../../state/public/ApplicationStateType";
+import ApplicationState from "../../../state/public/ApplicationStateType";
 import ICommand from "./ICommand";
 
 abstract class HTTPRequestCommandBase implements ICommand {

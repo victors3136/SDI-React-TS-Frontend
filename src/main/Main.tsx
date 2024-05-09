@@ -1,6 +1,4 @@
-// noinspection JSVoidFunctionReturnValueUsed
-
-import useAppStateStore from "./state/hidden/ApplicationStateStore";
+import useAppStateStore from "../state/hidden/ApplicationStateStore";
 import Header from "./components/HeaderComponent";
 import Body from "./components/BodyComponent";
 import Footer from "./components/FooterComponent";
@@ -16,7 +14,7 @@ export const Main = () => {
 
     return <>
         <Header/>
-        <Body/>
-        <Footer/>
+        <Body state={state}/>
+        <Footer state={state}/>
     </>;
 }

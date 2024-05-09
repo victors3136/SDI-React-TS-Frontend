@@ -1,5 +1,5 @@
 import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
-import ApplicationState from "../../state/public/ApplicationStateType";
+import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
 
 class GetSubtaskCountForTask extends HTTPRequestCommandBase {

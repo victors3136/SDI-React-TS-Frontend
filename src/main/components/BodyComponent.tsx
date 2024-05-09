@@ -1,28 +1,28 @@
 import React from "react";
 import {LoadingComponent} from "./Body/LoadingComponent";
 import {ListViewComponent} from "./Body/ListViewComponent";
-import useAppStateStore from "../state/hidden/ApplicationStateStore";
 import {TaskAddComponent} from "./Body/TaskAddComponent";
 import {TaskEditComponent} from "./Body/TaskEditComponent";
+import ApplicationState from "../../state/public/ApplicationStateType";
+import {TaskViewComponent} from "./Body/TaskViewComponent";
 
 const ErrorViewComponent = () => <></>
-const TaskViewComponent = () => <></>;
 const SubtaskViewComponent = () => <></>;
 const SubtaskAddComponent = () => <></>;
 const SubtaskEditComponent = () => <></>;
 
-const BodyComponent = () => {
-    const state = useAppStateStore();
+const BodyComponent = (props: { state: ApplicationState }) => {
+    const state = props.state;
     return <div className="Body inherit-color-scheme">
         {
-                (state.errorMessage     && <ErrorViewComponent/>)
-            ||  (state.addingTask       && <TaskAddComponent/>)
-            ||  (state.viewedTask       && <TaskViewComponent/>)
-            ||  (state.editedTask       && <TaskEditComponent/>)
-            ||  (state.addingSubtask    && <SubtaskAddComponent/>)
-            ||  (state.viewedSubtask    && <SubtaskViewComponent/>)
-            ||  (state.editedSubtask    && <SubtaskEditComponent/>)
-            ||  (state.tasks.length     && <ListViewComponent/>)
+            (state.errorMessage && <ErrorViewComponent/>)
+            || (state.addingTask && <TaskAddComponent/>)
+            || (state.viewedTask && <TaskViewComponent/>)
+            || (state.editedTask && <TaskEditComponent/>)
+            || (state.addingSubtask && <SubtaskAddComponent/>)
+            || (state.viewedSubtask && <SubtaskViewComponent/>)
+            || (state.editedSubtask && <SubtaskEditComponent/>)
+            || (state.tasks.length && <ListViewComponent/>)
             || (<LoadingComponent/>)
         }
     </div>;

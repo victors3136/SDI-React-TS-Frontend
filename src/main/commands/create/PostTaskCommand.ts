@@ -1,14 +1,15 @@
-import ITask from "../../state/public/ITask";
-import Task from "../../state/hidden/Task";
+import ITask from "../../../state/public/ITask";
+import Task from "../../../state/hidden/Task";
 import {AxiosResponse, HttpStatusCode} from "axios";
-import ApplicationState from "../../state/public/ApplicationStateType";
-import addTaskToState from "../../state/public/utils/addTaskToState";
+import ApplicationState from "../../../state/public/ApplicationStateType";
+import addTaskToState from "../../../state/public/utils/addTaskToState";
 import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import TaskBase from "../../../state/public/TaskBase";
 
 class PostTaskCommand extends HTTPRequestCommandBase {
     protected task: ITask;
 
-    public constructor(data: object) {
+    public constructor(data: TaskBase) {
         super();
         this.task = new Task(data);
     }
@@ -22,7 +23,7 @@ class PostTaskCommand extends HTTPRequestCommandBase {
                         this.task = new Task({
                             id: response.data.id,
                             name: this.task.name,
-                            description: this.task.description,
+                            description: this.task.description ?? "",
                             priority: this.task.priority,
                             dueDate: this.task.dueDate
                         });

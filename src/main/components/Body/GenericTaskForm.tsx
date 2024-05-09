@@ -1,11 +1,11 @@
-import ITask from "../../state/public/ITask";
+import ITask from "../../../state/public/ITask";
 import React, {useState} from "react";
 import {FaRegSave, FaRegWindowClose} from "react-icons/fa";
 import '../../../styling/public/css/Form.css';
-import Task from "../../state/hidden/Task";
+import Task from "../../../state/hidden/Task";
 
-export const GenericTaskForm = ({submitCallback, defaultFieldValues, cleanup}: {
-    submitCallback: (task: ITask) => void,
+export const GenericTaskForm = ({submit, defaultFieldValues, cleanup}: {
+    submit: (task: ITask) => void,
     defaultFieldValues: ITask,
     cleanup: () => void
 }) => {
@@ -13,11 +13,10 @@ export const GenericTaskForm = ({submitCallback, defaultFieldValues, cleanup}: {
     const [description, setDescription] = useState(defaultFieldValues.description ?? "");
     const [priority, setPriority] = useState(defaultFieldValues.priority);
     const [dueDate, setDueDate] = useState(defaultFieldValues.dueDate);
-    console.log("formin");
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
         <div>
             <form onSubmit={() => {
-                submitCallback(new Task({name, description, priority, dueDate}));
+                submit(new Task({name, description, priority, dueDate}));
                 cleanup();
             }}>
                 <div>

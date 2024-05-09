@@ -1,14 +1,15 @@
-import ApplicationState from "../../state/public/ApplicationStateType";
-import ISubtask from "../../state/public/ISubtask";
-import Subtask from "../../state/hidden/Subtask";
-import addSubtaskToState from "../../state/public/utils/addSubtaskToState";
+import ApplicationState from "../../../state/public/ApplicationStateType";
+import ISubtask from "../../../state/public/ISubtask";
+import Subtask from "../../../state/hidden/Subtask";
+import addSubtaskToState from "../../../state/public/utils/addSubtaskToState";
 import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
 import {AxiosResponse, HttpStatusCode} from "axios";
+import SubtaskBase from "../../../state/public/SubtaskBase";
 
 class PostSubtaskCommand extends HTTPRequestCommandBase {
     protected subtask: ISubtask;
 
-    public constructor(data: object) {
+    public constructor(data: SubtaskBase) {
         super();
         this.subtask = new Subtask(data);
     }

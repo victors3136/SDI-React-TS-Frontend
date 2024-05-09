@@ -1,8 +1,9 @@
 import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
-import ApplicationState from "../../state/public/ApplicationStateType";
-import Task from "../../state/hidden/Task";
-import addMultipleTasksToState from "../../state/public/utils/addMultipleTasksToState";
-import ITask from "../../state/public/ITask";
+import ApplicationState from "../../../state/public/ApplicationStateType";
+import Task from "../../../state/hidden/Task";
+import addMultipleTasksToState from "../../../state/public/utils/addMultipleTasksToState";
+import ITask from "../../../state/public/ITask";
+import TaskBase from "../../../state/public/TaskBase";
 
 class GetTaskPageCommand extends HTTPRequestCommandBase {
     private pageNumber: number;
@@ -17,9 +18,9 @@ class GetTaskPageCommand extends HTTPRequestCommandBase {
             .get(`/task/all/${this.pageNumber}`)
             .then(response => {
                 const list: ITask[] =
-                    response.data.content.map((jsonChunk: object) =>
-                        new Task(jsonChunk));
+                    response.data.content.map((jsonChunk: TaskBase) => new Task(jsonChunk));
                 addMultipleTasksToState(state, list);
+                state.setLatestPage(state.latestPage + 1);
             })
             .catch(err => this.handleError(state, err));
 

@@ -1,6 +1,6 @@
 import ITask from "./ITask";
 import ISubtask from "./ISubtask";
-import IColorSchemeProvider from "../../../styling/public/IColorSchemeProvider";
+import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
 
 export default interface ApplicationState {
     tasks: ITask[];
@@ -54,4 +54,8 @@ export default interface ApplicationState {
     subtaskCount: number;
 
     setSubtaskCount(count: number): void;
+
+    selectedTaskIDs: Set<string>;
+
+    setSelectedTaskIDs(ids: Set<string>): void;
 }

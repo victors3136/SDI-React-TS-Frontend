@@ -1,6 +1,6 @@
 import React from "react";
 import "../../../styling/public/css/Spinner.css";
-import useAppStateStore from "../../state/hidden/ApplicationStateStore";
+import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
 
 export const LoadingComponent = () => {
     const state = useAppStateStore();

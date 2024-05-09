@@ -1,8 +1,8 @@
-import ITask from "../../state/public/ITask";
+import ITask from "../../../state/public/ITask";
 import {priorityColorProvider} from "../../../styling/public/priorityColorProvider";
-import useAppStateStore from "../../state/hidden/ApplicationStateStore";
+import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ApplicationState from "../../state/public/ApplicationStateType";
+import ApplicationState from "../../../state/public/ApplicationStateType";
 import {FaRegEye} from "react-icons/fa";
 import React from "react";
 import {MdDelete} from "react-icons/md";
@@ -19,7 +19,7 @@ const DeleteButton = (props: { state: ApplicationState, task: ITask }) =>
         <MdDelete className="Larger-Icon"/>
     </button>
 
-export const TaskView = (props: { state: ApplicationState, task: ITask }) => {
+export const TaskMiniView = (props: { state: ApplicationState, task: ITask }) => {
     const {colorSchemeProvider} = useAppStateStore.getState();
     return <div className="col inherit-color-scheme">
         <div key={props.task.id}

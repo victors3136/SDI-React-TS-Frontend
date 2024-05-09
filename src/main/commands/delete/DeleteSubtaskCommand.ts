@@ -1,7 +1,7 @@
 import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
-import ApplicationState from "../../state/public/ApplicationStateType";
+import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
-import removeSubtask from "../../state/public/utils/removeSubtask";
+import removeSubtask from "../../../state/public/utils/removeSubtask";
 
 class DeleteSubtaskCommand extends HTTPRequestCommandBase {
     protected subtaskID: string;

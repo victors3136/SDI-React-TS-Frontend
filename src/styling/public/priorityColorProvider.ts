@@ -1,5 +1,5 @@
 import IColorSchemeProvider from "./IColorSchemeProvider";
-import ITask from "../../main/state/public/ITask";
+import ITask from "../../state/public/ITask";
 
 const RED = 0;
 const GREEN = 1;

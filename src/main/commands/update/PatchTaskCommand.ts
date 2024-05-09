@@ -1,8 +1,8 @@
 import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
-import ITask from "../../state/public/ITask";
-import ApplicationState from "../../state/public/ApplicationStateType";
+import ITask from "../../../state/public/ITask";
+import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
-import editTask from "../../state/public/utils/editTask";
+import editTask from "../../../state/public/utils/editTask";
 
 class PatchTaskCommand extends HTTPRequestCommandBase {
     protected baseTaskID: string;

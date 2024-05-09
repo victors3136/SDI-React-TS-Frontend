@@ -1,5 +1,5 @@
 import React from "react";
-import useAppStateStore from "../state/hidden/ApplicationStateStore";
+import useAppStateStore from "../../state/hidden/ApplicationStateStore";
 
 const HeaderComponent = () => {
     const provider = useAppStateStore().colorSchemeProvider;
