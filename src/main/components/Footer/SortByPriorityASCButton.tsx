@@ -1,11 +1,10 @@
-import useAppStateStore from "../../state/application-state-store";
 import GetSortedTasksCommand from "../../commands/read/GetSortedTasksCommand";
 import React from "react";
 import {BiSortUp} from "react-icons/bi";
+import ApplicationState from "../../../state/public/ApplicationStateType";
 
-export const SortByPriorityASCButton = () => {
-    const state = useAppStateStore();
-    return <button onClick={() => new GetSortedTasksCommand("ASC").execute(state)}
+export const SortByPriorityASCButton = (props: { state: ApplicationState }) => {
+    return <button onClick={() => new GetSortedTasksCommand("ASC").execute(props.state)}
                    className="inherit-color-scheme Only-Icon-Button Footer-Button">
         <BiSortUp className="Larger-Icon"/>
     </button>;

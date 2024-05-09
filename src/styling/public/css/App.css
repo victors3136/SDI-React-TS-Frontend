@@ -1,0 +1,72 @@
+.App {
+    text-align: center;
+    min-height: 100vh;
+    width: 100vw;
+    min-width: 98vw;
+    margin: -10px 0 0;
+}
+
+.inherit-color-scheme {
+    color: inherit;
+    background-color: inherit;
+    border-color: inherit;
+}
+
+.Header {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    min-height: 60px;
+}
+
+.TitleBox {
+    border-radius: .5rem;
+    padding: 1rem;
+}
+
+.Body {
+    margin-bottom: 4.5rem;
+    min-height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.Footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    margin: 0 0 -1rem;
+    padding: 0;
+    z-index: 1;
+    min-height: 5rem;
+}
+
+.Larger-Icon {
+    height: 2rem;
+    width: 2rem;
+}
+
+.Entry-View {
+    border: 3px solid;
+    box-shadow: 2px 2px 5px;
+}
+
+.Only-Icon-Button {
+    background-color: inherit;
+    border: none;
+}
+
+.Only-Icon-Button:hover .Larger-Icon {
+    animation: pulsate 1s infinite alternate;
+}
+
+@keyframes pulsate {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.25);
+    }
+}

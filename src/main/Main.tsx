@@ -1,12 +1,20 @@
-import ApplicationState from "./state/interface-application-state-store";
+import useAppStateStore from "../state/hidden/ApplicationStateStore";
 import Header from "./components/HeaderComponent";
 import Body from "./components/BodyComponent";
 import Footer from "./components/FooterComponent";
-import React from "react";
+import React, {useEffect} from "react";
+import GetTaskPageCommand from "./commands/read/GetTaskPageCommand";
 
-export const Main = (props: { state: ApplicationState }) =>
-    <>
+export const Main = () => {
+    const state = useAppStateStore();
+    useEffect(() => {
+        new GetTaskPageCommand().execute(state);
+        // eslint-disable-next-line
+    }, []);
+
+    return <>
         <Header/>
-        <Body/>
-        <Footer/>
-    </>
+        <Body state={state}/>
+        <Footer state={state}/>
+    </>;
+}

@@ -1,14 +1,15 @@
-import ApplicationState from "../../state/interface-application-state-store";
-import ISubtask from "../../state/interface-subtask";
-import Subtask from "../../state/subtask";
-import addSubtaskToState from "../../state/utils/addSubtaskToState";
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
+import ApplicationState from "../../../state/public/ApplicationStateType";
+import ISubtask from "../../../state/public/ISubtask";
+import Subtask from "../../../state/hidden/Subtask";
+import addSubtaskToState from "../../../state/public/utils/addSubtaskToState";
+import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
 import {AxiosResponse, HttpStatusCode} from "axios";
+import SubtaskBase from "../../../state/public/SubtaskBase";
 
 class PostSubtaskCommand extends HTTPRequestCommandBase {
     protected subtask: ISubtask;
 
-    public constructor(data: object) {
+    public constructor(data: SubtaskBase) {
         super();
         this.subtask = new Subtask(data);
     }
@@ -16,7 +17,7 @@ class PostSubtaskCommand extends HTTPRequestCommandBase {
     request = (state: ApplicationState) =>
         this.client
             .post('/subtask', this.subtask)
-            .then((response: AxiosResponse<{ id: number }>) => {
+            .then((response: AxiosResponse<{ id: string }>) => {
                 switch (response.status) {
                     case HttpStatusCode.Created:
                         this.subtask = new Subtask({

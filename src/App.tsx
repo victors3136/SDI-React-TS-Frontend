@@ -1,7 +1,8 @@
 import React from 'react';
-import './styling/App.css';
-import useAppStateStore from "./main/state/application-state-store";
+import './styling/public/css/App.css';
+import useAppStateStore from "./state/hidden/ApplicationStateStore";
 import {Main} from "./main/Main";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App: React.FC<any> = () => {
     const state = useAppStateStore();
@@ -14,7 +15,7 @@ const App: React.FC<any> = () => {
                  borderColor: styleProvider.accentColor(),
                  boxShadow: styleProvider.accentColor()
              }}>
-            <Main state={state}/>
+            <Main/>
         </div>
     );
 }

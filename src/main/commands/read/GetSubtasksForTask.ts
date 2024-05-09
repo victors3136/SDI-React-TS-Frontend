@@ -1,8 +1,13 @@
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
-import ApplicationState from "../../state/interface-application-state-store";
+import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
-import Subtask from "../../state/subtask";
-import setSubtasks from "../../state/utils/setSubtasks";
+import Subtask from "../../../state/hidden/Subtask";
+import setSubtasks from "../../../state/public/utils/setSubtasks";
+import SubtaskBase from "../../../state/public/SubtaskBase";
+import ITask from "../../../state/public/ITask";
+import TaskBase from "../../../state/public/TaskBase";
+import Task from "../../../state/hidden/Task";
+import ISubtask from "../../../state/public/ISubtask";
 
 class GetSubtasksForTask extends HTTPRequestCommandBase {
     protected taskId: string;
@@ -18,8 +23,8 @@ class GetSubtasksForTask extends HTTPRequestCommandBase {
             .then(response => {
                 switch (response.status) {
                     case HttpStatusCode.Ok:
-                        setSubtasks(state, response.data.map((jsonChunk: object) =>
-                            new Subtask(jsonChunk)));
+                        const subtasks: ISubtask[] = response.data.map((jsonChunk: SubtaskBase) => new Subtask(jsonChunk));
+                        setSubtasks(state, subtasks);
                         break;
                     case HttpStatusCode.BadRequest:
                         state.setErrorMessage("Request failed server-side validation");
@@ -36,4 +41,5 @@ class GetSubtasksForTask extends HTTPRequestCommandBase {
         console.log("No children could be ");
     }
 }
+
 export default GetSubtasksForTask;
