@@ -1,15 +1,12 @@
 import React from "react";
 import {LoadingComponent} from "./Body/LoadingComponent";
 import {ListViewComponent} from "./Body/ListViewComponent";
-import {TaskAddComponent} from "./Body/TaskAddComponent";
-import {TaskEditComponent} from "./Body/TaskEditComponent";
+import {TaskAddComponent} from "./Body/forms/TaskAddComponent";
+import {TaskEditComponent} from "./Body/forms/TaskEditComponent";
 import ApplicationState from "../../state/public/ApplicationStateType";
-import {TaskViewComponent} from "./Body/TaskViewComponent";
+import {TaskViewComponent} from "./Body/views/TaskViewComponent";
 import {ErrorViewComponent} from "./Body/ErrorViewComponent";
-
-const SubtaskViewComponent = () => <></>;
-const SubtaskAddComponent = () => <></>;
-const SubtaskEditComponent = () => <></>;
+import {SubtaskAddComponent} from "./Body/forms/SubtaskAddComponent";
 
 const BodyComponent = (props: { state: ApplicationState }) => {
     const state = props.state;
@@ -19,9 +16,7 @@ const BodyComponent = (props: { state: ApplicationState }) => {
             || (state.addingTask && <TaskAddComponent/>)
             || (state.viewedTask && <TaskViewComponent/>)
             || (state.editedTask && <TaskEditComponent/>)
-            || (state.addingSubtask && <SubtaskAddComponent/>)
-            || (state.viewedSubtask && <SubtaskViewComponent/>)
-            || (state.editedSubtask && <SubtaskEditComponent/>)
+            || (state.addingChildrenForATaskID && <SubtaskAddComponent/>)
             || (state.tasks.length && <ListViewComponent/>)
             || (<LoadingComponent/>)
         }

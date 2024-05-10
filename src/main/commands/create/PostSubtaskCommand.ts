@@ -25,7 +25,7 @@ class PostSubtaskCommand extends HTTPRequestCommandBase {
                             subject: this.subtask.subject,
                             task: this.subtask.task,
                         });
-                        this.localSync(state);
+                        this.syncAndCleanup(state);
                         break;
                     case HttpStatusCode.BadRequest:
                         state.setErrorMessage("Request failed server-side validation");
@@ -38,7 +38,7 @@ class PostSubtaskCommand extends HTTPRequestCommandBase {
             .catch(err => this.handleError(state, err))
             .finally(() => this.syncIfNotRetrying(state));
 
-    localSync = (state: ApplicationState) => addSubtaskToState(state, this.subtask)
+    syncAndCleanup = (state: ApplicationState) => addSubtaskToState(state, this.subtask)
 }
 
 export default PostSubtaskCommand;

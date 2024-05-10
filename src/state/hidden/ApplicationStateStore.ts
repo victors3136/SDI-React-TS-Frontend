@@ -20,8 +20,6 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     setViewedSubtask: (subtask) => set({viewedSubtask: subtask}),
     editedSubtask: undefined,
     setEditedSubtask: (subtask) => set({editedSubtask: subtask}),
-    addingSubtask: false,
-    setAddingSubtask: (value) => set({addingSubtask: value}),
     serverDown: false,
     setServerDown: (value) => set({serverDown: value}),
     latestPage: 0,
@@ -32,5 +30,7 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     setSubtaskCount: (count: number) => set({subtaskCount: count}),
     selectedTaskIDs: new Set(),
     setSelectedTaskIDs: (ids: Set<string>) => set({selectedTaskIDs: ids}),
-}));
+    addingChildrenForATaskID: undefined,
+    setParentTaskID: (id: string | undefined) => set({addingChildrenForATaskID: id}),
+}))
 export default useAppStateStore;

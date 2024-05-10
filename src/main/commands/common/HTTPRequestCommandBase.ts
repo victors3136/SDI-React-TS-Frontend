@@ -45,11 +45,11 @@ abstract class HTTPRequestCommandBase implements ICommand {
 
     protected syncIfNotRetrying = (state: ApplicationState) => {
         if (!this.retrying) {
-            this.localSync(state);
+            this.syncAndCleanup(state);
         }
     }
 
-    protected abstract localSync: (state: ApplicationState) => void;
+    protected abstract syncAndCleanup: (state: ApplicationState) => void;
 }
 
 export default HTTPRequestCommandBase;

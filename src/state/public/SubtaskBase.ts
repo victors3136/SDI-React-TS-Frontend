@@ -1,7 +1,7 @@
 interface SubtaskBase {
     id?: string,
     subject: string,
-    task: string
+    task: string,
     done?: boolean
 }
 

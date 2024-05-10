@@ -1,12 +1,13 @@
-import ITask from "../../../state/public/ITask";
-import {priorityColorProvider} from "../../../styling/public/priorityColorProvider";
+import ITask from "../../../../state/public/ITask";
+import {priorityColorProvider} from "../../../../styling/public/priorityColorProvider";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ApplicationState from "../../../state/public/ApplicationStateType";
+import ApplicationState from "../../../../state/public/ApplicationStateType";
 import React from "react";
-import {ViewButton} from "./ViewButton";
-import {DeleteButton} from "./DeleteButton";
-import {EditButton} from "./EditButton";
-import {ToggleSelectionButton} from "./ToggleSelectionButton";
+import {ViewButton} from "../buttons/ViewButton";
+import {DeleteButton} from "../buttons/DeleteButton";
+import {EditButton} from "../buttons/EditButton";
+import {ToggleSelectionButton} from "../buttons/ToggleSelectionButton";
+import {AddSubtaskButton} from "../buttons/AddSubtaskButton";
 
 export const TaskMiniView = (props: { state: ApplicationState, task: ITask }) => {
     const state = props.state;
@@ -49,7 +50,7 @@ export const TaskMiniView = (props: { state: ApplicationState, task: ITask }) =>
                     <EditButton state={props.state} task={props.task}/>
                     <DeleteButton state={props.state} task={props.task}/>
                     <ToggleSelectionButton state={props.state} task={props.task}/>
-                    {/*<AddSubtaskButton id={target.target.id}/>*/}
+                    <AddSubtaskButton state={props.state} task={props.task}/>
                 </div>
             </div>
         </div>

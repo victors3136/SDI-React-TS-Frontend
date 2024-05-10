@@ -1,5 +1,5 @@
 import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
-import {TaskMiniView} from "./TaskMiniView";
+import {TaskMiniView} from "./views/TaskMiniView";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ITask from "../../../state/public/ITask";
 

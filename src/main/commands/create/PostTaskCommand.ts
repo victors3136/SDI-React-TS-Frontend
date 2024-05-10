@@ -40,7 +40,7 @@ class PostTaskCommand extends HTTPRequestCommandBase {
             .finally(() => this.syncIfNotRetrying(state));
     };
 
-    localSync = (state: ApplicationState) => addTaskToState(state, this.task);
+    syncAndCleanup = (state: ApplicationState) => addTaskToState(state, this.task);
 }
 
 export default PostTaskCommand;

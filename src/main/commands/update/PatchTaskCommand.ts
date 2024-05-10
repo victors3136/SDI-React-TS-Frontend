@@ -3,6 +3,7 @@ import ITask from "../../../state/public/ITask";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
 import editTask from "../../../state/public/utils/editTask";
+import Task from "../../../state/hidden/Task";
 
 class PatchTaskCommand extends HTTPRequestCommandBase {
     protected baseTaskID: string;
@@ -11,14 +12,18 @@ class PatchTaskCommand extends HTTPRequestCommandBase {
     public constructor(baseTaskID: string, updatedTask: ITask) {
         super();
         this.baseTaskID = baseTaskID;
-        this.updatedTask = updatedTask;
+        this.updatedTask = new Task({
+            id: baseTaskID,
+            name: updatedTask.name,
+            description: updatedTask.description,
+            priority: updatedTask.priority,
+            dueDate: updatedTask.dueDate
+        });
     }
 
     request = (state: ApplicationState) => {
-        console.log(this.baseTaskID);
-        console.log(JSON.stringify(this.updatedTask));
         this.client
-            .patch(`task/${this.baseTaskID}`, {data: this.updatedTask})
+            .patch(`task/${this.baseTaskID}`, this.updatedTask)
             .then(response => {
                 switch (response.status) {
                     case HttpStatusCode.Ok:
@@ -36,7 +41,7 @@ class PatchTaskCommand extends HTTPRequestCommandBase {
             })
             .catch(err => this.handleError(state, err));
     }
-    localSync = (state: ApplicationState) => {
+    syncAndCleanup = (state: ApplicationState) => {
         editTask(state, this.updatedTask);
     }
 }

@@ -25,7 +25,7 @@ class GetTaskPageCommand extends HTTPRequestCommandBase {
             })
             .catch(err => this.handleError(state, err));
     }
-    localSync = (state: ApplicationState) => {
+    syncAndCleanup = (state: ApplicationState) => {
         console.log("No more pages could be loaded");
     }
 }

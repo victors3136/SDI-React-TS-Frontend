@@ -35,10 +35,6 @@ export default interface ApplicationState {
 
     setEditedSubtask(subtask: ISubtask | undefined): void;
 
-    addingSubtask: boolean;
-
-    setAddingSubtask(value: boolean): void;
-
     serverDown: boolean;
 
     setServerDown(value: boolean): void;
@@ -58,4 +54,8 @@ export default interface ApplicationState {
     selectedTaskIDs: Set<string>;
 
     setSelectedTaskIDs(ids: Set<string>): void;
+
+    addingChildrenForATaskID: string | undefined;
+
+    setParentTaskID(id: string | undefined): void;
 }

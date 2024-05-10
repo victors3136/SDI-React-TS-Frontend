@@ -27,11 +27,11 @@ class DeleteTaskCommand extends HTTPRequestCommandBase {
                     default:
                         throw new Error(`Unhandled response code: ${response.status}`);
                 }
-                this.localSync(state);
+                this.syncAndCleanup(state);
             })
             .catch(err => this.handleError(state, err));
 
-    localSync = (state: ApplicationState) => {
+    syncAndCleanup = (state: ApplicationState) => {
         removeTask(state, this.taskID);
     }
 }

@@ -14,11 +14,9 @@ class GetSortedTasksCommand extends HTTPRequestCommandBase {
     }
 
     request = (state: ApplicationState) => {
-        console.log("Getting sorted tasks");
         this.client
             .get(`/task?priority=${this.orderingDirection}`)
             .then(response => {
-                console.log(response);
                 const sortedListOfTasks: ITask[] =
                     response.data.map((jsonChunk: TaskBase) => new Task(jsonChunk));
                 state.setTasks(sortedListOfTasks);
@@ -28,10 +26,10 @@ class GetSortedTasksCommand extends HTTPRequestCommandBase {
 
     protected handleError(state: ApplicationState, err: Error) {
         super.handleError(state, err);
-        this.localSync(state);
+        this.syncAndCleanup(state);
     }
 
-    localSync = (state: ApplicationState) => {
+    syncAndCleanup = (state: ApplicationState) => {
         const comparator = this.orderingDirection.toUpperCase() === "DSC"
             ? (taskA: ITask, taskB: ITask) => taskA.priority - taskB.priority
             : (taskA: ITask, taskB: ITask) => taskB.priority - taskA.priority;

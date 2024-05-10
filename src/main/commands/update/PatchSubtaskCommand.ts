@@ -33,7 +33,7 @@ class PatchSubtaskCommand extends HTTPRequestCommandBase {
                 }
             })
             .catch(err => this.handleError(state, err));
-    localSync = (state: ApplicationState) => {
+    syncAndCleanup = (state: ApplicationState) => {
         editSubtask(state, this.updatedSubtask);
     }
 }

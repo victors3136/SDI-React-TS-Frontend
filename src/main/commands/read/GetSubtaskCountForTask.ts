@@ -29,7 +29,7 @@ class GetSubtaskCountForTask extends HTTPRequestCommandBase {
                 }
             })
             .catch(err => this.handleError(state, err));
-    localSync = (state: ApplicationState) => {
+    syncAndCleanup = (state: ApplicationState) => {
         console.log("No children could be ");
     }
 }
