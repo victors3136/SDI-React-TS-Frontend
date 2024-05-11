@@ -6,6 +6,10 @@ import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
 const useAppStateStore = create<ApplicationState>((set) => ({
     tasks: [],
     setTasks: (tasks) => set({tasks}),
+    addTask: (task) => set((state) =>
+        state.tasks.includes(task)
+            ? state
+            : {tasks: [...state.tasks, task]}),
     subtasks: [],
     setSubtasks: (subtasks) => set({subtasks}),
     errorMessage: '',

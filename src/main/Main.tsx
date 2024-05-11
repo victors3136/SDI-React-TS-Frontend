@@ -4,11 +4,17 @@ import Body from "./components/BodyComponent";
 import Footer from "./components/FooterComponent";
 import React, {useEffect} from "react";
 import GetTaskPageCommand from "./commands/read/GetTaskPageCommand";
+import ConnectToSocketCommand from "./commands/ConnectToSocketCommand";
 
 export const Main = () => {
     const state = useAppStateStore();
+
     useEffect(() => {
-        new GetTaskPageCommand().execute(state);
+        const fetchAndConnect = async () => {
+            await new GetTaskPageCommand().execute(state);
+            await new ConnectToSocketCommand().execute(state);
+        }
+        fetchAndConnect();
         // eslint-disable-next-line
     }, []);
 

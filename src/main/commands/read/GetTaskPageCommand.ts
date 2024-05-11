@@ -1,4 +1,4 @@
-import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import Task from "../../../state/hidden/Task";
 import addMultipleTasksToState from "../../../state/public/utils/addMultipleTasksToState";

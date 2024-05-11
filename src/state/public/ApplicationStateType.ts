@@ -7,6 +7,8 @@ export default interface ApplicationState {
 
     setTasks(tasks: ITask[]): void;
 
+    addTask: (task: ITask) => void;
+
     subtasks: ISubtask[];
 
     setSubtasks(subtasks: ISubtask[]): void;

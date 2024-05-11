@@ -1,4 +1,4 @@
-import ICommand from "./common/ICommand";
+import ICommand from "./ICommand";
 import ApplicationState from "../../state/public/ApplicationStateType";
 import {createAndDownloadJSON} from "../../state/public/utils/createAndDownloadJSON";
 

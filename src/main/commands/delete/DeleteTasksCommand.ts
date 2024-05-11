@@ -1,4 +1,4 @@
-import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import removeTasks from "../../../state/public/utils/removeTasks";
 import {HttpStatusCode} from "axios";

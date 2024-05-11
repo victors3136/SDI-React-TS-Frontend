@@ -3,7 +3,7 @@ import Task from "../../../state/hidden/Task";
 import {AxiosResponse, HttpStatusCode} from "axios";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import addTaskToState from "../../../state/public/utils/addTaskToState";
-import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import TaskBase from "../../../state/public/TaskBase";
 
 class PostTaskCommand extends HTTPRequestCommandBase {

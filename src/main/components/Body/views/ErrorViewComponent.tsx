@@ -1,6 +1,6 @@
 import React from "react";
 import {FaRegWindowClose} from "react-icons/fa";
-import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
+import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
 
 export const ErrorViewComponent = () => {
     const state = useAppStateStore();

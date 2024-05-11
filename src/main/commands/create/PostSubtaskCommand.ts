@@ -2,7 +2,7 @@ import ApplicationState from "../../../state/public/ApplicationStateType";
 import ISubtask from "../../../state/public/ISubtask";
 import Subtask from "../../../state/hidden/Subtask";
 import addSubtaskToState from "../../../state/public/utils/addSubtaskToState";
-import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
 import {AxiosResponse, HttpStatusCode} from "axios";
 import SubtaskBase from "../../../state/public/SubtaskBase";
 

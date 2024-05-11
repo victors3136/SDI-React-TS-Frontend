@@ -1,15 +1,19 @@
 import React from "react";
 import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
 import {FaRegWindowClose} from "react-icons/fa";
-import {LoadingComponent} from "../LoadingComponent";
+import {LoadingSpinnerComponent} from "../misc/LoadingSpinnerComponent";
 import ApplicationState from "../../../../state/public/ApplicationStateType";
-import {SubtaskView} from "./SubtaskView";
+import {SubtaskListView} from "./SubtaskListView";
 
 const cleanup = (state: ApplicationState) => {
     state.setViewedTask(undefined);
     state.setSubtaskCount(-1);
     state.setSubtasks([]);
 }
+
+const childrenCountNotFetched = (state: ApplicationState) => state.subtaskCount === -1;
+const childrenNotFetched = (state: ApplicationState) => state.subtasks.length <= 0;
+const dataStillFetching = (state: ApplicationState) => childrenCountNotFetched(state) && childrenNotFetched(state);
 
 export const TaskViewComponent = () => {
     const state = useAppStateStore();
@@ -26,23 +30,19 @@ export const TaskViewComponent = () => {
             <p>Priority: {viewedTask.priority}</p>
             <p>Due on: {`${dueDate.getDate()}/${dueDate.getMonth()}/${dueDate.getFullYear()}`}</p>
             {
-                state.subtaskCount >= 0
-                    ? <p>{state.subtaskCount} Children: </p>
-                    : <p>Fetching...</p>
+                childrenCountNotFetched(state)
+                    ? <p>Fetching...</p>
+                    : <p>{state.subtaskCount} Children: </p>
+
             }
             {
-                state.subtasks.length <= 0
-                    ? <LoadingComponent/>
-                    : <div
-                        style={{
-                            display: "block",
-                            height: "250px",
-                            overflowY: "scroll",
-                            paddingRight: "3%",
-                            overflowX: "clip"
-                        }}>
-                        {state.subtasks.map(subtask => <SubtaskView key={subtask.id} state={state} subtask={subtask}/>)}
-                    </div>
+                dataStillFetching(state)
+                    ? <LoadingSpinnerComponent/>
+                    : (
+                        childrenNotFetched(state)
+                            ? <p>Add a subtask to see it here!</p>
+                            : <SubtaskListView state={state}/>
+                    )
             }
             <div style={{justifyContent: "flex-end"}}>
                 <button onClick={() => cleanup(state)} className="Only-Icon-Button"

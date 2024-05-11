@@ -1,4 +1,4 @@
-import GetSortedTasksCommand from "../../commands/read/GetSortedTasksCommand";
+import GetSortedTasksCommand from "../../commands/GetSortedTasksCommand";
 import React from "react";
 import {BiSortUp} from "react-icons/bi";
 import ApplicationState from "../../../state/public/ApplicationStateType";

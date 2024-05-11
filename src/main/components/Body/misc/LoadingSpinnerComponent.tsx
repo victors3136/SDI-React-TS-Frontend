@@ -1,8 +1,8 @@
 import React from "react";
-import "../../../styling/public/css/Spinner.css";
-import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
+import "../../../../styling/public/css/Spinner.css";
+import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
 
-export const LoadingComponent = () => {
+export const LoadingSpinnerComponent = () => {
     const state = useAppStateStore();
     const colorSchemeProvider = state.colorSchemeProvider;
     return <div className="spinner-container">

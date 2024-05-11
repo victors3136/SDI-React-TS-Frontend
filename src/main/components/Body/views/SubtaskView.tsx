@@ -1,40 +1,35 @@
 import ApplicationState from "../../../../state/public/ApplicationStateType";
 import ISubtask from "../../../../state/public/ISubtask";
 import React, {useState} from "react";
-import PatchSubtaskCommand from "../../../commands/update/PatchSubtaskCommand";
 import Subtask from "../../../../state/hidden/Subtask";
 import {DeleteSubtaskButton} from "../buttons/DeleteSubtaskButton";
 import {ConfirmChangesToSubtaskButton} from "../buttons/ConfirmChangesToSubtaskButton";
 import {StartToEditSubtaskButton} from "../buttons/StartToEditSubtaskButton";
+import "../../../../styling/public/css/App.css";
 
 export const SubtaskView = (props: { state: ApplicationState, subtask: ISubtask }) => {
     const [isEditing, setIsEditing] = useState(false);
     const subtask = props.subtask;
-    let subject = subtask.subject;
+    const [subject, setSubject] = useState(subtask.subject);
     const id = subtask.id;
-
+    const task = subtask.task;
     return <div
-        style={{
-            display: "block",
-            border: "solid  2px",
-            borderColor: "#111111",
-            backgroundColor: "#111111",
-            borderRadius: "5px",
-            width: "100%",
-            padding: "3%",
-            margin: "1%"
-        }}>
+        className="SubtaskView"
+        style={{display: "block", width: "100%"}}>
         {
             isEditing
                 ? <input type="text"
                          value={subject}
-                         onChange={() => new PatchSubtaskCommand(id, new Subtask({id, subject, task: subtask.task}))}/>
-                : <p>{subject}</p>}
-        <div style={{display: "inline-flex"}}>
-            <DeleteSubtaskButton state={props.state} id={subtask.id}/>
+                         style={{width: "100 %"}}
+                         onChange={change => setSubject(change.target.value)}/>
+                : <p style={{marginTop: "1rem"}}>{subject}</p>}
+        <div style={{display: "inline-flex", justifyContent: "space-around", width: "100%"}}>
+            <DeleteSubtaskButton state={props.state} id={id}/>
             {
                 isEditing
-                    ? <ConfirmChangesToSubtaskButton state={props.state} id={subtask.id}/>
+                    ? <ConfirmChangesToSubtaskButton state={props.state} id={id}
+                                                     subtask={new Subtask({id, subject, task})}
+                                                     cleanup={() => setIsEditing(false)}/>
                     : <StartToEditSubtaskButton startEditing={() => setIsEditing(true)}/>
             }
         </div>

@@ -70,3 +70,20 @@
         transform: scale(1.25);
     }
 }
+
+.SubtaskView {
+    display: block;
+    border: solid 2px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 3%;
+    margin: 1%
+}
+
+.SubtaskListView {
+    display: block;
+    height: 250px;
+    overflow-y: scroll;
+    padding-right: 3%;
+    overflow-x: clip
+}
