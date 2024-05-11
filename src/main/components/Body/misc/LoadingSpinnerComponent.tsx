@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../../styling/public/css/Spinner.css";
+import "../../../../styling/public/css/App.css";
 import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
 
 export const LoadingSpinnerComponent = () => {

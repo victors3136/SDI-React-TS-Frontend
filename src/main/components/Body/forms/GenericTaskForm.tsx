@@ -1,7 +1,7 @@
 import ITask from "../../../../state/public/ITask";
 import React, {useState} from "react";
 import {FaRegSave, FaRegWindowClose} from "react-icons/fa";
-import '../../../../styling/public/css/Form.css';
+import '../../../../styling/public/css/App.css';
 import Task from "../../../../state/hidden/Task";
 import TaskBase from "../../../../state/public/TaskBase";
 
