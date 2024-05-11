@@ -3,7 +3,7 @@ import {ChangeStyleButton} from "./Footer/ChangeStyleButton";
 import {AddButton} from "./Footer/AddButton";
 import {SortByPriorityASCButton} from "./Footer/SortByPriorityASCButton";
 import {SortByPriorityDESButton} from "./Footer/SortByPriorityDESButton";
-import {RemoveSelectedButton} from "./Footer/RemoveSelectedButton";
+import {DeleteSelectedButton} from "./Footer/DeleteSelectedButton";
 import {ExportSelectedButton} from "./Footer/ExportSelectedButton";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ApplicationState from "../../state/public/ApplicationStateType";
@@ -22,7 +22,7 @@ const FooterComponent = (props: { state: ApplicationState }) => {
                 <AddButton/>
                 <SortByPriorityASCButton state={props.state}/>
                 <SortByPriorityDESButton state={props.state}/>
-                <RemoveSelectedButton state={props.state}/>
+                <DeleteSelectedButton state={props.state}/>
                 <ExportSelectedButton state={props.state}/>
                 <ChangeStyleButton/>
             </div>

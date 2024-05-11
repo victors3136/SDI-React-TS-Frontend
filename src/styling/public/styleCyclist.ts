@@ -1,5 +1,4 @@
 import LightColorSchemeProvider from "../hidden/LightColorSchemeProvider";
-import GirlyColorSchemeProvider from "../hidden/GirlyColorSchemeProvider";
 import EdgyColorSchemeProvider from "../hidden/EdgyColorSchemeProvider";
 import NatureColorSchemeProvider from "../hidden/NatureColorSchemeProvider";
 import BeehiveColorSchemeProvider from "../hidden/BeehiveColorSchemeProvider";

@@ -1,6 +1,6 @@
-import ApplicationState from "../../../state/public/ApplicationStateType";
-import ITask from "../../../state/public/ITask";
-import DeleteTaskCommand from "../../commands/delete/DeleteTaskCommand";
+import ApplicationState from "../../../../state/public/ApplicationStateType";
+import ITask from "../../../../state/public/ITask";
+import DeleteTaskCommand from "../../../commands/delete/DeleteTaskCommand";
 import {MdDelete} from "react-icons/md";
 import React from "react";
 

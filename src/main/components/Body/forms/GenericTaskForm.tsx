@@ -1,8 +1,16 @@
-import ITask from "../../../state/public/ITask";
+import ITask from "../../../../state/public/ITask";
 import React, {useState} from "react";
 import {FaRegSave, FaRegWindowClose} from "react-icons/fa";
-import '../../../styling/public/css/Form.css';
-import Task from "../../../state/hidden/Task";
+import '../../../../styling/public/css/App.css';
+import Task from "../../../../state/hidden/Task";
+import TaskBase from "../../../../state/public/TaskBase";
+
+const verify = (fields: TaskBase) =>
+    (fields.name.length > 0) &&
+    (!!fields.description) &&
+    (fields.priority <= 10) &&
+    (fields.priority >= 1) &&
+    (!!fields.dueDate);
 
 export const GenericTaskForm = ({submit, defaultFieldValues, cleanup}: {
     submit: (task: ITask) => void,
@@ -16,7 +24,17 @@ export const GenericTaskForm = ({submit, defaultFieldValues, cleanup}: {
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
         <div>
             <form onSubmit={() => {
-                submit(new Task({name, description, priority, dueDate}));
+                const base: TaskBase = {name, description, priority, dueDate};
+                console.log("Submitting form");
+                console.log(base);
+                if (!verify(base)) {
+                    cleanup();
+                    return;
+                }
+                const task = new Task(base);
+                console.log(JSON.stringify(task));
+                submit(task);
+
                 cleanup();
             }}>
                 <div>

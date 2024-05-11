@@ -1,15 +1,13 @@
 import React from "react";
-import Task from "../../../state/hidden/Task";
-import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
+import Task from "../../../../state/hidden/Task";
+import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
 import {GenericTaskForm} from "./GenericTaskForm";
-import ITask from "../../../state/public/ITask";
-import PostTaskCommand from "../../commands/create/PostTaskCommand";
+import ITask from "../../../../state/public/ITask";
+import PostTaskCommand from "../../../commands/create/PostTaskCommand";
 
 export const TaskAddComponent = () => {
-    const defaultTask = new Task({name: "Enter a name", description: "Enter a description", priority: 0});
-    console.log("Built " + JSON.stringify(defaultTask));
+    const defaultTask = new Task({name: "", description: "", priority: 0});
     const state = useAppStateStore();
-    // return <h1>Addin</h1>;
     if (!state.addingTask) {
         return <h1> not adding</h1>;
     }

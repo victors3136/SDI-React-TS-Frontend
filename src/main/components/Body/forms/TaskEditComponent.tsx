@@ -1,8 +1,8 @@
 import React from "react";
-import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
+import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
 import {GenericTaskForm} from "./GenericTaskForm";
-import PatchTaskCommand from "../../commands/update/PatchTaskCommand";
-import ITask from "../../../state/public/ITask";
+import PatchTaskCommand from "../../../commands/update/PatchTaskCommand";
+import ITask from "../../../../state/public/ITask";
 
 export const TaskEditComponent = () => {
     const state = useAppStateStore();

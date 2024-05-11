@@ -1,30 +1,31 @@
-import ITask from "../../../state/public/ITask";
-import {priorityColorProvider} from "../../../styling/public/priorityColorProvider";
+import ITask from "../../../../state/public/ITask";
+import {priorityColorProvider} from "../../../../styling/public/priorityColorProvider";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ApplicationState from "../../../state/public/ApplicationStateType";
+import ApplicationState from "../../../../state/public/ApplicationStateType";
 import React from "react";
-import {ViewButton} from "./ViewButton";
-import {DeleteButton} from "./DeleteButton";
-import {EditButton} from "./EditButton";
-import {ToggleSelectionButton} from "./ToggleSelectionButton";
+import {ViewButton} from "../buttons/ViewButton";
+import {DeleteButton} from "../buttons/DeleteButton";
+import {EditButton} from "../buttons/EditButton";
+import {ToggleSelectionButton} from "../buttons/ToggleSelectionButton";
+import {AddSubtaskButton} from "../buttons/AddSubtaskButton";
 
-export const TaskMiniView = (props: { state: ApplicationState, task: ITask }) => {
+export const TaskMiniView = (props: { id: string, state: ApplicationState, task: ITask }) => {
     const state = props.state;
     const {colorSchemeProvider} = state;
     const {name, priority, dueDate} = props.task;
-    return <div className="col inherit-color-scheme">
-        <div key={props.task.id}
-             className="card Entry-View inherit-color-scheme"
-             style={{
-                 color: colorSchemeProvider.textColor(),
-                 backgroundColor: priorityColorProvider(priority, colorSchemeProvider),
-                 border: "2px solid " + colorSchemeProvider.accentColor(),
-                 boxShadow: colorSchemeProvider.accentColor(),
-                 borderRadius: "5px",
-                 display: "flex",
-                 flexDirection: "column",
-                 minHeight: "100%"
-             }}>
+    return <div id={props.id} className="col inherit-color-scheme">
+        <div
+            className="card Entry-View inherit-color-scheme"
+            style={{
+                color: colorSchemeProvider.textColor(),
+                backgroundColor: priorityColorProvider(priority, colorSchemeProvider),
+                border: "2px solid " + colorSchemeProvider.accentColor(),
+                boxShadow: colorSchemeProvider.accentColor(),
+                borderRadius: "5px",
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100%"
+            }}>
             <div style={{padding: "1%"}}>
                 <h1 className="card-title inherit-color-scheme"
                     style={{
@@ -49,7 +50,7 @@ export const TaskMiniView = (props: { state: ApplicationState, task: ITask }) =>
                     <EditButton state={props.state} task={props.task}/>
                     <DeleteButton state={props.state} task={props.task}/>
                     <ToggleSelectionButton state={props.state} task={props.task}/>
-                    {/*<AddSubtaskButton id={target.target.id}/>*/}
+                    <AddSubtaskButton state={props.state} task={props.task}/>
                 </div>
             </div>
         </div>

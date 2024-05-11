@@ -1,9 +1,9 @@
-import HTTPRequestCommandBase from "../common/HTTPRequestCommandBase";
+import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
 import removeSubtask from "../../../state/public/utils/removeSubtask";
 
-class DeleteSubtaskCommand extends HTTPRequestCommandBase {
+class DeleteSubtaskCommand extends HTTPRequestCommand {
     protected subtaskID: string;
 
     public constructor(subtaskID: string) {
@@ -11,27 +11,24 @@ class DeleteSubtaskCommand extends HTTPRequestCommandBase {
         this.subtaskID = subtaskID;
     }
 
-    request = (state: ApplicationState) =>
-        this.client
-            .delete(`/subtask/${this.subtaskID}`)
-            .then(response => {
-                switch (response.status) {
-                    case HttpStatusCode.NoContent:
-                        break;
-                    case HttpStatusCode.BadRequest:
-                        state.setErrorMessage("Request failed server-side validation");
-                        break;
-                    case HttpStatusCode.NotFound:
-                        state.setErrorMessage("Entry could not be found");
-                        break;
-                    default:
-                        throw new Error(`Unhandled response code: ${response.status}`);
-                }
-                this.localSync(state);
-            })
-            .catch(err => this.handleError(state, err));
+    protected async request(state: ApplicationState) {
+        const url = `/subtask/${this.subtaskID}`;
+        const response = await this.client.delete(url);
+        switch (response.status) {
+            case HttpStatusCode.NoContent:
+                break;
+            case HttpStatusCode.BadRequest:
+                state.setErrorMessage("Request failed server-side validation");
+                break;
+            case HttpStatusCode.NotFound:
+                state.setErrorMessage("Entry could not be found");
+                break;
+            default:
+                throw new Error(`Network Error: ${response.status}`);
+        }
+    }
 
-    localSync = (state: ApplicationState) => {
+    protected syncLocal(state: ApplicationState) {
         removeSubtask(state, this.subtaskID);
     }
 }
