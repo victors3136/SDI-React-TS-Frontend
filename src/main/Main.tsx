@@ -11,8 +11,8 @@ export const Main = () => {
 
     useEffect(() => {
         const fetchAndConnect = async () => {
-            await new GetTaskPageCommand().execute(state);
-            await new ConnectToSocketCommand().execute(state);
+            new GetTaskPageCommand().execute(state);
+            new ConnectToSocketCommand().execute(state);
         }
         fetchAndConnect();
         // eslint-disable-next-line

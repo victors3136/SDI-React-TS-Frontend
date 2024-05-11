@@ -1,19 +1,25 @@
 import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
-import removeTask from "../../../state/public/utils/removeTask";
+import removeTasks from "../../../state/public/utils/removeTasks";
 import {HttpStatusCode} from "axios";
+import {clearIDSelection} from "../../../state/public/utils/clearIDSelection";
 
-class DeleteTaskCommand extends HTTPRequestCommand {
-    protected taskID: string;
+class DeleteTaskBatchCommand extends HTTPRequestCommand {
+    protected taskIDS: string[];
 
-    public constructor(taskID: string) {
+    public constructor(taskIDS: string[]) {
         super();
-        this.taskID = taskID;
+        this.taskIDS = taskIDS;
     }
 
     protected async request(state: ApplicationState) {
-        const url = `/task/${this.taskID}`;
-        const response = await this.client.delete(url);
+        if (this.taskIDS.length === 0) {
+            return;
+        }
+        const url = '/task/batch';
+        const payload = {data: this.taskIDS};
+        const response = await this.client.delete(url, payload);
+
         switch (response.status) {
             case HttpStatusCode.NoContent:
                 break;
@@ -29,8 +35,10 @@ class DeleteTaskCommand extends HTTPRequestCommand {
     }
 
     protected syncLocal(state: ApplicationState) {
-        removeTask(state, this.taskID);
+        removeTasks(state, this.taskIDS);
+        clearIDSelection(state);
+
     }
 }
 
-export default DeleteTaskCommand;
+export default DeleteTaskBatchCommand;

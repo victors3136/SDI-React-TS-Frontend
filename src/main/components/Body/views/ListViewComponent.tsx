@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ITask from "../../../../state/public/ITask";
 import React, {useEffect, useRef} from "react";
 import {RegisterObserverCommand} from "../../../commands/RegisterObserverCommand";
+import {LoadingSpinnerComponent} from "../misc/LoadingSpinnerComponent";
 
 export const ListViewComponent = () => {
     const state = useAppStateStore();
@@ -20,10 +21,6 @@ export const ListViewComponent = () => {
                 )
             }
         </div>
-        <div id="observer" ref={underTheLastLoadedItem}>
-            {
-                // state. || <LoadingSpinnerComponent/>
-            }
-        </div>
+        <div id="observer" ref={underTheLastLoadedItem}/>
     </div>
 }

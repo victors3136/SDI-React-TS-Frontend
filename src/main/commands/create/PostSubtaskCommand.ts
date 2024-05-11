@@ -2,11 +2,11 @@ import ApplicationState from "../../../state/public/ApplicationStateType";
 import ISubtask from "../../../state/public/ISubtask";
 import Subtask from "../../../state/hidden/Subtask";
 import addSubtaskToState from "../../../state/public/utils/addSubtaskToState";
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
-import {AxiosResponse, HttpStatusCode} from "axios";
+import HTTPRequestCommand from "../HTTPRequestCommand";
+import {HttpStatusCode} from "axios";
 import SubtaskBase from "../../../state/public/SubtaskBase";
 
-class PostSubtaskCommand extends HTTPRequestCommandBase {
+class PostSubtaskCommand extends HTTPRequestCommand {
     protected subtask: ISubtask;
 
     public constructor(data: SubtaskBase) {
@@ -14,31 +14,25 @@ class PostSubtaskCommand extends HTTPRequestCommandBase {
         this.subtask = new Subtask(data);
     }
 
-    request = (state: ApplicationState) =>
-        this.client
-            .post('/subtask', this.subtask)
-            .then((response: AxiosResponse<{ id: string }>) => {
-                switch (response.status) {
-                    case HttpStatusCode.Created:
-                        this.subtask = new Subtask({
-                            id: response.data.id,
-                            subject: this.subtask.subject,
-                            task: this.subtask.task,
-                        });
-                        this.syncAndCleanup(state);
-                        break;
-                    case HttpStatusCode.BadRequest:
-                        state.setErrorMessage("Request failed server-side validation");
-                        break;
-                    default:
-                        throw new Error(`Unhandled response code: ${response.status}`);
-                }
-                state.setServerDown(false);
-            })
-            .catch(err => this.handleError(state, err))
-            .finally(() => this.syncIfNotRetrying(state));
+    protected async request(state: ApplicationState): Promise<void> {
+        const url = '/subtask';
+        const response = await this.client.post(url, this.subtask);
+        switch (response.status) {
+            case HttpStatusCode.Created:
+                const subtaskId = response.data.id;
+                this.subtask = new Subtask({...this.subtask, id: subtaskId});
+                break;
+            case HttpStatusCode.BadRequest:
+                state.setErrorMessage('Server-side validation failed');
+                break;
+            default:
+                throw new Error(`Network Error: ${response.status}`);
+        }
+    }
 
-    syncAndCleanup = (state: ApplicationState) => addSubtaskToState(state, this.subtask)
+    protected syncLocal(state: ApplicationState) {
+        addSubtaskToState(state, this.subtask);
+    }
 }
 
 export default PostSubtaskCommand;

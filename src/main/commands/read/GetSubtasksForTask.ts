@@ -1,41 +1,41 @@
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
+import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
 import Subtask from "../../../state/hidden/Subtask";
-import setSubtasks from "../../../state/public/utils/setSubtasks";
 import SubtaskBase from "../../../state/public/SubtaskBase";
 import ISubtask from "../../../state/public/ISubtask";
 
-class GetSubtasksForTask extends HTTPRequestCommandBase {
+class GetSubtasksForTask extends HTTPRequestCommand {
     protected taskId: string;
+    protected subtasks: ISubtask[];
 
     public constructor(taskId: string) {
         super();
         this.taskId = taskId;
+        this.subtasks = [];
     }
 
-    request = (state: ApplicationState) =>
-        this.client
-            .get(`/subtask/by_parent/${this.taskId}`)
-            .then(response => {
-                switch (response.status) {
-                    case HttpStatusCode.Ok:
-                        const subtasks: ISubtask[] = response.data.map((jsonChunk: SubtaskBase) => new Subtask(jsonChunk));
-                        setSubtasks(state, subtasks);
-                        break;
-                    case HttpStatusCode.BadRequest:
-                        state.setErrorMessage("Request failed server-side validation");
-                        break;
-                    case HttpStatusCode.NotFound:
-                        state.setErrorMessage("Entity could not be found");
-                        break;
-                    default:
-                        throw new Error(`Unhandled response code: ${response.status}`);
-                }
-            })
-            .catch(err => this.handleError(state, err));
-    syncAndCleanup = (_state: ApplicationState) => {
-        console.log("No children could be ");
+    protected async request(state: ApplicationState) {
+        const url = `/subtask/by_parent/${this.taskId}`;
+        const response = await this.client.get(url);
+        switch (response.status) {
+            case HttpStatusCode.Ok:
+                this.subtasks = response.data.map((jsonChunk: SubtaskBase) => new Subtask(jsonChunk));
+                state.setSubtasks(this.subtasks);
+                break;
+            case HttpStatusCode.BadRequest:
+                state.setErrorMessage("Request failed server-side validation");
+                break;
+            case HttpStatusCode.NotFound:
+                state.setErrorMessage("Entity could not be found");
+                break;
+            default:
+                throw new Error(`Network Error: ${response.status}`);
+        }
+    }
+
+    protected syncLocal(state: ApplicationState) {
+        state.setSubtasks(this.subtasks);
     }
 }
 

@@ -1,32 +1,33 @@
-import HTTPRequestCommandBase from "../HTTPRequestCommandBase";
+import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import Task from "../../../state/hidden/Task";
-import addMultipleTasksToState from "../../../state/public/utils/addMultipleTasksToState";
 import ITask from "../../../state/public/ITask";
 import TaskBase from "../../../state/public/TaskBase";
+import {HttpStatusCode} from "axios";
 
-class GetTaskPageCommand extends HTTPRequestCommandBase {
-    private pageNumber: number;
+class GetTaskPageCommand extends HTTPRequestCommand {
+    protected pageNumber: number;
 
     public constructor(pageNum?: number) {
         super();
         this.pageNumber = pageNum ?? 0;
     }
 
-    request = (state: ApplicationState) => {
-        console.log("Requesting a page of tasks");
-        this.client
-            .get(`/task/all/${this.pageNumber}`)
-            .then(response => {
-                const list: ITask[] =
-                    response.data.content.map((jsonChunk: TaskBase) => new Task(jsonChunk));
-                addMultipleTasksToState(state, list);
-                state.setLatestPage(state.latestPage + 1);
-            })
-            .catch(err => this.handleError(state, err));
+    protected async request(state: ApplicationState) {
+        const url = `/task/all/${this.pageNumber}`;
+        const response = await this.client.get(url);
+        if (response.status === HttpStatusCode.Ok) {
+            const list: ITask[] = response.data.content.map((jsonChunk: TaskBase) => new Task(jsonChunk));
+            state.addTasks(list);
+            state.incrementPageCounter();
+            state.setMorePagesAvailable(list.length !== 0);
+        } else {
+            throw new Error(`Network Error: ${response.status}`);
+        }
     }
-    syncAndCleanup = (_state: ApplicationState) => {
-        console.log("No more pages could be loaded");
+
+    protected syncLocal(state: ApplicationState) {
+        state.setMorePagesAvailable(HTTPRequestCommand.serverDown);
     }
 }
 

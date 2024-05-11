@@ -18,7 +18,8 @@ const BodyComponent = (props: { state: ApplicationState }) => {
             || (state.editedTask && <TaskEditComponent/>)
             || (state.addingChildrenForATaskID && <SubtaskAddComponent/>)
             || (state.tasks.length && <ListViewComponent/>)
-            || (<LoadingSpinnerComponent/>)
+            || (state.morePagesAvailable && <LoadingSpinnerComponent/>)
+            || (<h1> Add a task by pressing the + button! </h1>)
         }
     </div>;
 };

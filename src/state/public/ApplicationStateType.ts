@@ -1,6 +1,7 @@
 import ITask from "./ITask";
 import ISubtask from "./ISubtask";
 import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
+import HTTPRequestCommand from "../../main/commands/HTTPRequestCommand";
 
 export default interface ApplicationState {
     tasks: ITask[];
@@ -8,6 +9,8 @@ export default interface ApplicationState {
     setTasks(tasks: ITask[]): void;
 
     addTask: (task: ITask) => void;
+
+    addTasks: (tasks: ITask[]) => void;
 
     subtasks: ISubtask[];
 
@@ -45,7 +48,9 @@ export default interface ApplicationState {
 
     setLatestPage(id: number): void;
 
-    colorSchemeProvider: IColorSchemeProvider
+    incrementPageCounter(): void;
+
+    colorSchemeProvider: IColorSchemeProvider;
 
     setColorSchemeProvider(instance: IColorSchemeProvider): void;
 
@@ -60,4 +65,15 @@ export default interface ApplicationState {
     addingChildrenForATaskID: string | undefined;
 
     setParentTaskID(id: string | undefined): void;
+
+    morePagesAvailable: boolean;
+
+    setMorePagesAvailable(value: boolean): void;
+
+    requestQueue: HTTPRequestCommand[];
+
+    enqueueRequest(request: HTTPRequestCommand): void;
+
+    dequeueRequest(): void;
+
 }
