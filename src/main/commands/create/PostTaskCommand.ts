@@ -15,6 +15,7 @@ class PostTaskCommand extends HTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = '/task';
+        console.log(`requesting ${url}`);
         const response = await this.client.post(url, this.task);
         switch (response.status) {
             case HttpStatusCode.Created:

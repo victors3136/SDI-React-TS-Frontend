@@ -14,6 +14,7 @@ class GetSubtaskCountForTask extends HTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = `/task/count/${this.taskId}`;
+        console.log(`requesting ${url}`);
         const response = await this.client.get(url);
         switch (response.status) {
             case HttpStatusCode.Ok:

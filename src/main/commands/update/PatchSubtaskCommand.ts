@@ -17,6 +17,7 @@ class PatchSubtaskCommand extends HTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = `subtask/${this.baseSubtaskID}`;
+        console.log(`requesting ${url}`);
         const payload = this.updatedSubtask;
         const response = await this.client.patch(url, payload);
         switch (response.status) {
