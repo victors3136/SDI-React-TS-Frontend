@@ -16,6 +16,7 @@ class PostSubtaskCommand extends HTTPRequestCommand {
 
     protected async request(state: ApplicationState): Promise<void> {
         const url = '/subtask';
+        console.log(`requesting ${url}`);
         const response = await this.client.post(url, this.subtask);
         switch (response.status) {
             case HttpStatusCode.Created:

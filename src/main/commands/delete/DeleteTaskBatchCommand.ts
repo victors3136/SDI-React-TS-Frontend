@@ -17,6 +17,7 @@ class DeleteTaskBatchCommand extends HTTPRequestCommand {
             return;
         }
         const url = '/task/batch';
+        console.log(`requesting ${url}`);
         const payload = {data: this.taskIDS};
         const response = await this.client.delete(url, payload);
 

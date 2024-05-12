@@ -15,7 +15,9 @@ class GetTaskPageCommand extends HTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = `/task/all/${this.pageNumber}`;
+        console.log(`requesting ${url}`);
         const response = await this.client.get(url);
+        console.log(response);
         if (response.status === HttpStatusCode.Ok) {
             const list: ITask[] = response.data.content.map((jsonChunk: TaskBase) => new Task(jsonChunk));
             state.addTasks(list);

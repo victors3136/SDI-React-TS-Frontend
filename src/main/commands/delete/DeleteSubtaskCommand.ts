@@ -13,6 +13,7 @@ class DeleteSubtaskCommand extends HTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = `/subtask/${this.subtaskID}`;
+        console.log(`requesting ${url}`);
         const response = await this.client.delete(url);
         switch (response.status) {
             case HttpStatusCode.NoContent:

@@ -2,7 +2,6 @@ import {create} from 'zustand'
 import ApplicationState from "../public/ApplicationStateType";
 import DarkColorSchemeProvider from "../../styling/hidden/DarkColorSchemeProvider";
 import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
-import HTTPRequestCommand from "../../main/commands/HTTPRequestCommand";
 
 const useAppStateStore = create<ApplicationState>((set) => ({
     tasks: [],
@@ -41,12 +40,5 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     setParentTaskID: (id: string | undefined) => set({addingChildrenForATaskID: id}),
     morePagesAvailable: true,
     setMorePagesAvailable: (value: boolean) => set({morePagesAvailable: value}),
-    requestQueue: [],
-    enqueueRequest: (request: HTTPRequestCommand) => set((state) =>
-        ({requestQueue: [...state.requestQueue, request]})),
-    dequeueRequest: () => set((state) => {
-        const [_, ...rest] = state.requestQueue;
-        return {requestQueue: rest};
-    }),
 }))
 export default useAppStateStore;

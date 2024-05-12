@@ -1,7 +1,6 @@
 import ITask from "./ITask";
 import ISubtask from "./ISubtask";
 import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
-import HTTPRequestCommand from "../../main/commands/HTTPRequestCommand";
 
 export default interface ApplicationState {
     tasks: ITask[];
@@ -69,11 +68,4 @@ export default interface ApplicationState {
     morePagesAvailable: boolean;
 
     setMorePagesAvailable(value: boolean): void;
-
-    requestQueue: HTTPRequestCommand[];
-
-    enqueueRequest(request: HTTPRequestCommand): void;
-
-    dequeueRequest(): void;
-
 }

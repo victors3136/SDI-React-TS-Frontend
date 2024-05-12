@@ -17,6 +17,7 @@ class GetSubtasksForTask extends HTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = `/subtask/by_parent/${this.taskId}`;
+        console.log(`requesting ${url}`);
         const response = await this.client.get(url);
         switch (response.status) {
             case HttpStatusCode.Ok:
