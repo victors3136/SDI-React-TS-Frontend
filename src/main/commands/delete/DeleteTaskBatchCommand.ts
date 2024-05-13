@@ -1,14 +1,15 @@
-import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import removeTasks from "../../../state/public/utils/removeTasks";
 import {HttpStatusCode} from "axios";
 import {clearIDSelection} from "../../../state/public/utils/clearIDSelection";
+import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
+import IHTTPClient from "../../requests/public/IHTTPClient";
 
-class DeleteTaskBatchCommand extends HTTPRequestCommand {
+class DeleteTaskBatchCommand extends RetryableHTTPRequestCommand {
     protected taskIDS: string[];
 
-    public constructor(taskIDS: string[]) {
-        super();
+    public constructor(taskIDS: string[], client?: IHTTPClient) {
+        super(client);
         this.taskIDS = taskIDS;
     }
 

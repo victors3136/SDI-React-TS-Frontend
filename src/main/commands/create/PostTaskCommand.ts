@@ -2,14 +2,15 @@ import ITask from "../../../state/public/ITask";
 import Task from "../../../state/hidden/Task";
 import {HttpStatusCode} from "axios";
 import ApplicationState from "../../../state/public/ApplicationStateType";
-import HTTPRequestCommand from "../HTTPRequestCommand";
 import TaskBase from "../../../state/public/TaskBase";
+import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
+import IHTTPClient from "../../requests/public/IHTTPClient";
 
-class PostTaskCommand extends HTTPRequestCommand {
+class PostTaskCommand extends RetryableHTTPRequestCommand {
     protected task: ITask;
 
-    public constructor(data: TaskBase) {
-        super();
+    public constructor(data: TaskBase, client?: IHTTPClient) {
+        super(client);
         this.task = new Task(data);
     }
 

@@ -4,21 +4,33 @@ import {HttpStatusCode} from "axios";
 import Subtask from "../../../state/hidden/Subtask";
 import SubtaskBase from "../../../state/public/SubtaskBase";
 import ISubtask from "../../../state/public/ISubtask";
+import IHTTPClient from "../../requests/public/IHTTPClient";
 
 class GetSubtasksForTask extends HTTPRequestCommand {
     protected taskId: string;
     protected subtasks: ISubtask[];
 
-    public constructor(taskId: string) {
-        super();
+    public constructor(taskId: string, client?: IHTTPClient) {
+        super(client);
         this.taskId = taskId;
         this.subtasks = [];
     }
 
-    protected async request(state: ApplicationState) {
+    public async execute(state: ApplicationState) {
+        if (HTTPRequestCommand.serverIsDown) {
+            state.setSubtasks([]);
+            return;
+        }
         const url = `/subtask/by_parent/${this.taskId}`;
         console.log(`requesting ${url}`);
-        const response = await this.client.get(url);
+        let response;
+        try {
+            response = await this.client.get(url);
+        } catch (_error) {
+            state.setErrorMessage("Service unavailable");
+            HTTPRequestCommand.serverIsDown = true;
+            return;
+        }
         switch (response.status) {
             case HttpStatusCode.Ok:
                 this.subtasks = response.data.map((jsonChunk: SubtaskBase) => new Subtask(jsonChunk));
@@ -31,12 +43,9 @@ class GetSubtasksForTask extends HTTPRequestCommand {
                 state.setErrorMessage("Entity could not be found");
                 break;
             default:
-                throw new Error(`Network Error: ${response.status}`);
+                state.setErrorMessage("Service unavailable");
+                HTTPRequestCommand.serverIsDown = true;
         }
-    }
-
-    protected syncLocal(state: ApplicationState) {
-        state.setSubtasks(this.subtasks);
     }
 }
 

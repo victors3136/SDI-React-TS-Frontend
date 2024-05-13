@@ -1,16 +1,17 @@
-import HTTPRequestCommand from "../HTTPRequestCommand";
 import ITask from "../../../state/public/ITask";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
 import editTask from "../../../state/public/utils/editTask";
 import Task from "../../../state/hidden/Task";
+import IHTTPClient from "../../requests/public/IHTTPClient";
+import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
 
-class PatchTaskCommand extends HTTPRequestCommand {
+class PatchTaskCommand extends RetryableHTTPRequestCommand {
     protected baseTaskID: string;
     protected updatedTask: ITask;
 
-    public constructor(baseTaskID: string, updatedTask: ITask) {
-        super();
+    public constructor(baseTaskID: string, updatedTask: ITask, client?: IHTTPClient) {
+        super(client);
         this.baseTaskID = baseTaskID;
         this.updatedTask = new Task({...updatedTask, id: baseTaskID});
     }
@@ -31,7 +32,7 @@ class PatchTaskCommand extends HTTPRequestCommand {
                 state.setErrorMessage("Entry could not be found");
                 break;
             default:
-                throw new Error(`Unhandled response code: ${response.status}`);
+                throw new Error(`Network Error: ${response.status}`);
         }
     }
 
