@@ -4,6 +4,12 @@ import DarkColorSchemeProvider from "../../styling/hidden/DarkColorSchemeProvide
 import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
 
 const useAppStateStore = create<ApplicationState>((set) => ({
+    jsonWebToken: undefined,
+    setJSONWebToken: (jwt: string | undefined) => set({jsonWebToken: jwt}),
+    logging: false,
+    setLogging: (logging: boolean) => set({logging}),
+    registering: false,
+    setRegistering: (registering: boolean) => set({registering}),
     tasks: [],
     setTasks: (tasks) => set({tasks}),
     addTask: (task) => set((state) =>

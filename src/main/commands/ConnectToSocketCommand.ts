@@ -12,21 +12,21 @@ class ConnectToSocketCommand implements ICommand {
             console.warn("No url specified for the websocket");
             return;
         }
-        if (!process.env.REACT_APP_BACKEND_WS_ENDPOINT) {
+        if (!process.env.REACT_APP_BACKEND_SOCKET_ENDPOINT) {
             console.warn("No endpoint specified for the websocket");
             return;
         }
         const url = process.env.REACT_APP_BACKEND_SOCKET_URL;
-        const endpoint = process.env.REACT_APP_BACKEND_WS_ENDPOINT;
-        const wsFactory = () => new WebSocket(url);
-        const onReadAvailable = (data: { body: string }) => {
+        const endpoint = process.env.REACT_APP_BACKEND_SOCKET_ENDPOINT;
+        const webSocketFactoryFunction = () => new WebSocket(url);
+        const parseAndDisplay = (data: { body: string }) => {
             const payload: string = data.body;
             const taskBase: TaskBase = JSON.parse(payload);
             const task: ITask = new Task(taskBase);
             addTaskToState(state, task);
         }
-        const socketClient = new Client({webSocketFactory: wsFactory});
-        socketClient.onConnect = () => socketClient.subscribe(endpoint, onReadAvailable);
+        const socketClient = new Client({webSocketFactory: webSocketFactoryFunction});
+        socketClient.onConnect = () => socketClient.subscribe(endpoint, parseAndDisplay);
         socketClient.activate();
     }
 }

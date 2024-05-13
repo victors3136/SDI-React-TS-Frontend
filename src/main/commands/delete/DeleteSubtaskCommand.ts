@@ -1,13 +1,14 @@
-import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
 import removeSubtask from "../../../state/public/utils/removeSubtask";
+import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
+import IHTTPClient from "../../requests/public/IHTTPClient";
 
-class DeleteSubtaskCommand extends HTTPRequestCommand {
+class DeleteSubtaskCommand extends RetryableHTTPRequestCommand {
     protected subtaskID: string;
 
-    public constructor(subtaskID: string) {
-        super();
+    public constructor(subtaskID: string, client?: IHTTPClient) {
+        super(client);
         this.subtaskID = subtaskID;
     }
 

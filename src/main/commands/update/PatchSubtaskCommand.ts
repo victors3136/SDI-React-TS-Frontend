@@ -1,16 +1,17 @@
-import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
 import editSubtask from "../../../state/public/utils/editSubtask";
 import ISubtask from "../../../state/public/ISubtask";
 import Subtask from "../../../state/hidden/Subtask";
+import IHTTPClient from "../../requests/public/IHTTPClient";
+import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
 
-class PatchSubtaskCommand extends HTTPRequestCommand {
+class PatchSubtaskCommand extends RetryableHTTPRequestCommand {
     protected baseSubtaskID: string;
     protected updatedSubtask: ISubtask;
 
-    public constructor(baseSubtaskID: string, updatedSubtask: ISubtask) {
-        super();
+    public constructor(baseSubtaskID: string, updatedSubtask: ISubtask, client?: IHTTPClient) {
+        super(client);
         this.baseSubtaskID = baseSubtaskID;
         this.updatedSubtask = new Subtask({...updatedSubtask, id: baseSubtaskID});
     }
