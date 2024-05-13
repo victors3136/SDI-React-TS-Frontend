@@ -24,7 +24,6 @@ const RegisterForm = () => {
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
         <div>
             <form onSubmit={() => {
-                console.log("Form submitted");
                 if (!validUsername(username)) {
                     state.setErrorMessage("A username must be between 4 and 32 characters and only contain letters, digits, or '_'");
                     return;
