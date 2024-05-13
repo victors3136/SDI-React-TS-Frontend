@@ -12,18 +12,23 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
             : {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`});
         this.client = axios.create({
             baseURL: process.env.REACT_APP_BACKEND_API_URL,
-            headers: this.headers});
+            headers: this.headers
+        });
     }
 
     public static instantiate: () => IHTTPClient = () => {
         return new AxiosHTTPClientAdapter();
     }
 
-    get = (url: string) =>
-        this.client.get(url, {headers: this.headers});
+    get = (url: string) => {
+        console.log(url);
+        return this.client.get(url, {headers: this.headers});
+    }
 
-    post = (url: string, data: object) =>
-        this.client.post(url, data, {headers: this.headers});
+    post = (url: string, data: object) => {
+        console.log(url);
+        return this.client.post(url, data, {headers: this.headers});
+    }
 
     patch = (url: string, data: object) =>
         this.client.patch(url, data, {headers: this.headers});
