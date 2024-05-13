@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {FaRegWindowClose} from "react-icons/fa";
-import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
-import {LoginCommand} from "../../commands/LoginCommand";
+import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
+import {LoginCommand} from "../../../commands/LoginCommand";
 import {IoMdSend} from "react-icons/io";
 
 const LoginForm = () => {

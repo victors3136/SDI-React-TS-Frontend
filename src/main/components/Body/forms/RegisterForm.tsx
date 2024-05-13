@@ -1,8 +1,8 @@
-import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
+import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
 import React, {useState} from "react";
 import {IoMdSend} from "react-icons/io";
 import {FaRegWindowClose} from "react-icons/fa";
-import {RegisterCommand} from "../../commands/RegisterCommand";
+import {RegisterCommand} from "../../../commands/RegisterCommand";
 
 const validUsername = (input: string) => {
     return input.match("^[0-9a-zA-Z_]{4,32}$");

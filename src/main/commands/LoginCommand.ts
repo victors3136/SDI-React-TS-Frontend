@@ -13,5 +13,6 @@ export class LoginCommand extends HTTPRequestCommand {
     }
 
     async execute(state: ApplicationState) {
+        state.setJSONWebToken("random string");
     }
 }
