@@ -4,8 +4,9 @@ import {FaRegSave, FaRegWindowClose} from "react-icons/fa";
 import '../../../../styling/public/css/App.css';
 import Task from "../../../../state/hidden/Task";
 import TaskBase from "../../../../state/public/TaskBase";
+import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
 
-const verify = (fields: TaskBase) =>
+const isValidBasisForCreatingATask = (fields: TaskBase) =>
     (fields.name.length > 0) &&
     (!!fields.description) &&
     (fields.priority <= 10) &&
@@ -17,6 +18,7 @@ export const GenericTaskForm = ({submit, defaultFieldValues, cleanup}: {
     defaultFieldValues: ITask,
     cleanup: () => void
 }) => {
+    const {setErrorMessage} = useAppStateStore.getState();
     const [name, setName] = useState(defaultFieldValues.name);
     const [description, setDescription] = useState(defaultFieldValues.description ?? "");
     const [priority, setPriority] = useState(defaultFieldValues.priority);
@@ -25,16 +27,12 @@ export const GenericTaskForm = ({submit, defaultFieldValues, cleanup}: {
         <div>
             <form onSubmit={() => {
                 const base: TaskBase = {name, description, priority, dueDate};
-                console.log("Submitting form");
-                console.log(base);
-                if (!verify(base)) {
-                    cleanup();
-                    return;
+                if (isValidBasisForCreatingATask(base)) {
+                    const task = new Task(base);
+                    submit(task);
+                } else {
+                    setErrorMessage("The entity is not valid");
                 }
-                const task = new Task(base);
-                console.log(JSON.stringify(task));
-                submit(task);
-
                 cleanup();
             }}>
                 <div>

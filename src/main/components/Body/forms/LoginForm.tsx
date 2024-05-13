@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {FaRegWindowClose} from "react-icons/fa";
-import useAppStateStore from "../../../state/hidden/ApplicationStateStore";
-import {LoginCommand} from "../../commands/LoginCommand";
+import useAppStateStore from "../../../../state/hidden/ApplicationStateStore";
+import {LoginCommand} from "../../../commands/LoginCommand";
 import {IoMdSend} from "react-icons/io";
 
 const LoginForm = () => {
@@ -12,7 +12,7 @@ const LoginForm = () => {
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
         <div>
             <form onSubmit={() => {
-                new LoginCommand(username, password).execute(state);
+                new LoginCommand({username, password}).execute(state);
                 cleanup();
             }}>
                 <div>
