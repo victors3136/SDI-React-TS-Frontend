@@ -3,6 +3,18 @@ import ISubtask from "./ISubtask";
 import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
 
 export default interface ApplicationState {
+    jsonWebToken: string | undefined;
+
+    setJSONWebToken(jwt: string | undefined): void;
+
+    logging: boolean;
+
+    setLogging(logging: boolean): void;
+
+    registering: boolean;
+
+    setRegistering(registering: boolean): void;
+
     tasks: ITask[];
 
     setTasks(tasks: ITask[]): void;
