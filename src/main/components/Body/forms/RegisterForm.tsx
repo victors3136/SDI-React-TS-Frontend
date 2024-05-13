@@ -37,7 +37,7 @@ const RegisterForm = () => {
                     state.setErrorMessage("Invalid email address");
                     return;
                 }
-                new RegisterCommand(username, password, email).execute(state);
+                new RegisterCommand({username, password, email}).execute(state);
                 cleanup();
             }}>
                 <div>

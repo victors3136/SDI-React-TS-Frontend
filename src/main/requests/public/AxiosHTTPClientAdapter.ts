@@ -3,30 +3,34 @@ import axios, {AxiosInstance} from "axios";
 
 class AxiosHTTPClientAdapter implements IHTTPClient {
     private client: AxiosInstance;
-    private static instance: AxiosHTTPClientAdapter;
+    private readonly headers;
 
     private constructor() {
+        const token = localStorage.getItem('jwtToken');
+        this.headers = (token === null
+            ? {'Content-Type': 'application/json'}
+            : {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`});
         this.client = axios.create({
-            baseURL: process.env.REACT_APP_BACKEND_API_URL
-        })
+            baseURL: process.env.REACT_APP_BACKEND_API_URL,
+            headers: this.headers});
     }
 
     public static instantiate: () => IHTTPClient = () => {
-        AxiosHTTPClientAdapter.instance ??= new AxiosHTTPClientAdapter();
-        return AxiosHTTPClientAdapter.instance;
+        return new AxiosHTTPClientAdapter();
     }
+
     get = (url: string) =>
-        this.client.get(url);
+        this.client.get(url, {headers: this.headers});
 
     post = (url: string, data: object) =>
-        this.client.post(url, data, {headers: {'Content-Type': 'application/json'}});
+        this.client.post(url, data, {headers: this.headers});
 
     patch = (url: string, data: object) =>
-        this.client.patch(url, data, {headers: {'Content-Type': 'application/json'}});
+        this.client.patch(url, data, {headers: this.headers});
 
     delete = (url: string, data?: object | undefined) =>
-        data ? this.client.delete(url, data)
-            : this.client.delete(url);
+        data ? this.client.delete(url, {data, headers: this.headers})
+            : this.client.delete(url, {headers: this.headers});
 }
 
 export default AxiosHTTPClientAdapter;

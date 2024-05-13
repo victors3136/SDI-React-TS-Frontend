@@ -12,7 +12,7 @@ const LoginForm = () => {
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
         <div>
             <form onSubmit={() => {
-                new LoginCommand(username, password).execute(state);
+                new LoginCommand({username, password}).execute(state);
                 cleanup();
             }}>
                 <div>
