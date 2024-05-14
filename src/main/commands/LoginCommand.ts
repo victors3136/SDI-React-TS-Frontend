@@ -23,26 +23,18 @@ export class LoginCommand extends HTTPRequestCommand {
         const url = '/user/login';
         console.log(url);
         const loginRequestBody: LoginRequestBase = {username: this.username, password: this.password};
-        let response: { body: string, status: number };
+        let response: { data: string, status: number };
         try {
             response = await this.client.post(url, loginRequestBody);
-        } catch (_exception) {
-            state.setErrorMessage("Connection to the server and password validation failed...\nTry again later");
+        } catch (error) {
+            state.setErrorMessage("Wrong username or password");
             return;
         }
-        if (!response.body) {
-            state.setErrorMessage("Response has no body? This is strange...");
-            return;
-        }
-        switch (response.status) {
-            case HttpStatusCode.Ok:
-                state.setJSONWebToken(response.body);
-                break;
-            case HttpStatusCode.Unauthorized:
-                state.setErrorMessage(response.body);
-                break;
-            default:
-                state.setErrorMessage(`Unhandled response status -- ${response.status}\n${response.body}`);
+        console.log(response);
+
+        if (response.status === HttpStatusCode.Ok) {
+            state.setJSONWebToken(response.data);
+            localStorage.setItem('jwt', response.data);
         }
     }
 }

@@ -11,10 +11,11 @@ const LoginForm = () => {
     const cleanup = () => state.setLogging(false);
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
         <div>
-            <form onSubmit={() => {
-                new LoginCommand({username, password}).execute(state);
-                cleanup();
-            }}>
+            <form onSubmit={
+                async () => {
+                    new LoginCommand({username, password}).execute(state);
+                    cleanup();
+                }}>
                 <div>
                     <label>Username: </label>
                     <input

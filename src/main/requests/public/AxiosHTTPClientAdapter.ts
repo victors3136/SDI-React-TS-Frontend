@@ -6,7 +6,7 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
     private readonly headers;
 
     private constructor() {
-        const token = localStorage.getItem('jwtToken');
+        const token = localStorage.getItem('jwt');
         this.headers = (token === null
             ? {'Content-Type': 'application/json'}
             : {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`});
@@ -17,7 +17,9 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
     }
 
     public static instantiate: () => IHTTPClient = () => {
-        return new AxiosHTTPClientAdapter();
+        const client = new AxiosHTTPClientAdapter();
+        console.log(client.headers);
+        return client;
     }
 
     get = (url: string) => {

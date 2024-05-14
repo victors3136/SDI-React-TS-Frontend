@@ -5,6 +5,7 @@ import {HttpStatusCode} from "axios";
 import IUser from "../../state/public/IUser";
 import UserBase from "../../state/public/UserBase";
 import User from "../../state/hidden/User";
+import {LoginCommand} from "./LoginCommand";
 
 
 export class RegisterCommand extends HTTPRequestCommand {
@@ -19,25 +20,25 @@ export class RegisterCommand extends HTTPRequestCommand {
         const url = '/user/register';
         console.log(url);
         const registerRequestBody = this.user;
-        let response: { body: string, status: number };
-        try {
-            response = await this.client.post(url, registerRequestBody);
-        } catch (_error) {
-            state.setErrorMessage("Connection to the server and password validation failed...\nTry again later");
-            return;
-        }
-        if (!response.body) {
+        let response: { data: string, status: number };
+        response = await this.client.post(url, registerRequestBody);
+        console.log(response);
+        if (!response.data) {
             state.setErrorMessage("Response has no body? This is strange...");
             return;
         }
         switch (response.status) {
             case HttpStatusCode.Ok:
+                new LoginCommand({username: this.user.username, password: this.user.password}).execute(state);
                 break;
             case HttpStatusCode.Unauthorized:
-                state.setErrorMessage(response.body);
+                state.setErrorMessage("Username is already taken");
                 break;
             default:
-                state.setErrorMessage(`Unhandled response status -- ${response.status}\n${response.body}`);
+                state.setErrorMessage(
+                    `Unhandled response status --
+                               ${response.status}\n
+                               ${response.data}`);
         }
     }
 }
