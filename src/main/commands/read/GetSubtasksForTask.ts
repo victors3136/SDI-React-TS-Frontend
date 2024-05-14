@@ -21,7 +21,7 @@ class GetSubtasksForTask extends HTTPRequestCommand {
             state.setSubtasks([]);
             return;
         }
-        const url = `/subtask/by_parent/${this.taskId}`;
+        const url = `/subtask/for/${this.taskId}`;
         console.log(`requesting ${url}`);
         let response;
         try {

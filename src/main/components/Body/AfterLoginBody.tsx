@@ -15,7 +15,7 @@ const AfterLoginBody = (props: { state: ApplicationState }) => {
             new GetTaskPageCommand().execute(props.state);
             new ConnectToSocketCommand().execute(props.state);
         }
-        fetchAndConnect();
+        setTimeout(fetchAndConnect, 500);
         // eslint-disable-next-line
     }, []);
     const state = props.state;

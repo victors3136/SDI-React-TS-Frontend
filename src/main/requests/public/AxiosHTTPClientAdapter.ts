@@ -6,7 +6,7 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
     private readonly headers;
 
     private constructor() {
-        const token = localStorage.getItem('jwtToken');
+        const token = localStorage.getItem('jwt');
         this.headers = (token === null
             ? {'Content-Type': 'application/json'}
             : {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`});
@@ -17,7 +17,9 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
     }
 
     public static instantiate: () => IHTTPClient = () => {
-        return new AxiosHTTPClientAdapter();
+        const client = new AxiosHTTPClientAdapter();
+        console.log(client.headers);
+        return client;
     }
 
     get = (url: string) => {
@@ -30,12 +32,18 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
         return this.client.post(url, data, {headers: this.headers});
     }
 
-    patch = (url: string, data: object) =>
-        this.client.patch(url, data, {headers: this.headers});
+    patch = (url: string, data: object) => {
+        console.log(url);
+        return this.client.patch(url, data, {headers: this.headers});
+    }
 
-    delete = (url: string, data?: object | undefined) =>
-        data ? this.client.delete(url, {data, headers: this.headers})
-            : this.client.delete(url, {headers: this.headers});
+    delete = (url: string, data?: object | undefined) => {
+        console.log(url);
+        return (
+            data
+                ? this.client.delete(url, {headers: this.headers, data})
+                : this.client.delete(url, {headers: this.headers}));
+    }
 }
 
 export default AxiosHTTPClientAdapter;
