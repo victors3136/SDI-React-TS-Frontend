@@ -10,10 +10,14 @@ export abstract class RetryableHTTPRequestCommand extends HTTPRequestCommand {
 
     protected abstract request(state: ApplicationState): Promise<any>;
 
+    protected abstract showEffectOnPageBeforeSendingToServer(): boolean;
+
     protected abstract syncLocal(state: ApplicationState): void;
 
     async execute(state: ApplicationState) {
-        this.syncLocal(state);
+        if (this.showEffectOnPageBeforeSendingToServer()) {
+            this.syncLocal(state);
+        }
         if (HTTPRequestCommand.serverIsDown || RetryableHTTPRequestCommand.requestQueue.length > 0) {
             RetryableHTTPRequestCommand.enqueue(this, state);
             return;
@@ -24,6 +28,10 @@ export abstract class RetryableHTTPRequestCommand extends HTTPRequestCommand {
             state.setErrorMessage("Server seems to be down :(\n Keeping a local session for now...");
             HTTPRequestCommand.serverIsDown = true;
             RetryableHTTPRequestCommand.enqueue(this, state);
+            return;
+        }
+        if (!this.showEffectOnPageBeforeSendingToServer()) {
+            this.syncLocal(state);
         }
     }
 

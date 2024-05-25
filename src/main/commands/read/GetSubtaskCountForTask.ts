@@ -19,7 +19,6 @@ class GetSubtaskCountForTask extends HTTPRequestCommand {
             return;
         }
         const url = `/subtask/count/${this.taskId}`;
-        console.log(`requesting ${url}`);
         let response;
         try {
             response = await this.client.get(url);

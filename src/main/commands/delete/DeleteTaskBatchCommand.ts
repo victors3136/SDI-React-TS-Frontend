@@ -18,7 +18,6 @@ class DeleteTaskBatchCommand extends RetryableHTTPRequestCommand {
             return;
         }
         const url = '/task/batch';
-        console.log(`requesting ${url}`);
         const payload = {data: this.taskIDS};
         const response = await this.client.delete(url, payload);
 
@@ -40,6 +39,10 @@ class DeleteTaskBatchCommand extends RetryableHTTPRequestCommand {
         removeTasks(state, this.taskIDS);
         clearIDSelection(state);
 
+    }
+
+    protected showEffectOnPageBeforeSendingToServer(): boolean {
+        return true;
     }
 }
 

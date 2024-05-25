@@ -17,32 +17,26 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
     }
 
     public static instantiate: () => IHTTPClient = () => {
-        const client = new AxiosHTTPClientAdapter();
-        console.log(client.headers);
-        return client;
+        return new AxiosHTTPClientAdapter();
     }
 
     get = (url: string) => {
-        console.log(url);
         return this.client.get(url, {headers: this.headers});
     }
 
     post = (url: string, data: object) => {
-        console.log(url);
+        console.log(JSON.stringify(data));
         return this.client.post(url, data, {headers: this.headers});
     }
 
     patch = (url: string, data: object) => {
-        console.log(url);
         return this.client.patch(url, data, {headers: this.headers});
     }
 
     delete = (url: string, data?: object | undefined) => {
-        console.log(url);
-        return (
-            data
-                ? this.client.delete(url, {headers: this.headers, data})
-                : this.client.delete(url, {headers: this.headers}));
+        return (data ?
+            this.client.delete(url, {headers: this.headers, data})
+            : this.client.delete(url, {headers: this.headers}));
     }
 }
 

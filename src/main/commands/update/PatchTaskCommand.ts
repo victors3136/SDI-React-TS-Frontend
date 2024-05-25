@@ -18,7 +18,6 @@ class PatchTaskCommand extends RetryableHTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = `task/${this.baseTaskID}`;
-        console.log(`requesting ${url}`);
         const payload = this.updatedTask;
         const response = await this.client.patch(url, payload);
         switch (response.status) {
@@ -38,6 +37,10 @@ class PatchTaskCommand extends RetryableHTTPRequestCommand {
 
     protected syncLocal(state: ApplicationState) {
         editTask(state, this.updatedTask);
+    }
+
+    protected showEffectOnPageBeforeSendingToServer(): boolean {
+        return true;
     }
 }
 

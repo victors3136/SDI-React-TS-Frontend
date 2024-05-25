@@ -21,7 +21,6 @@ export class LoginCommand extends HTTPRequestCommand {
 
     async execute(state: ApplicationState) {
         const url = '/user/login';
-        console.log(url);
         const loginRequestBody: LoginRequestBase = {username: this.username, password: this.password};
         let response: { data: string, status: number };
         try {
@@ -30,7 +29,6 @@ export class LoginCommand extends HTTPRequestCommand {
             state.setErrorMessage("Wrong username or password");
             return;
         }
-        console.log(response);
 
         if (response.status === HttpStatusCode.Ok) {
             state.setJSONWebToken(response.data);
