@@ -22,7 +22,6 @@ class GetSubtasksForTask extends HTTPRequestCommand {
             return;
         }
         const url = `/subtask/for/${this.taskId}`;
-        console.log(`requesting ${url}`);
         let response;
         try {
             response = await this.client.get(url);

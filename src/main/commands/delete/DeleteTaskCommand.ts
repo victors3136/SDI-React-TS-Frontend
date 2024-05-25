@@ -14,7 +14,6 @@ class DeleteTaskCommand extends RetryableHTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = `/task/${this.taskID}`;
-        console.log(`requesting ${url}`);
         const response = await this.client.delete(url);
         switch (response.status) {
             case HttpStatusCode.NoContent:
@@ -32,6 +31,10 @@ class DeleteTaskCommand extends RetryableHTTPRequestCommand {
 
     protected syncLocal(state: ApplicationState) {
         removeTask(state, this.taskID);
+    }
+
+    protected showEffectOnPageBeforeSendingToServer(): boolean {
+        return true;
     }
 }
 

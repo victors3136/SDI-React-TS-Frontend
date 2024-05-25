@@ -14,7 +14,6 @@ class DeleteSubtaskCommand extends RetryableHTTPRequestCommand {
 
     protected async request(state: ApplicationState) {
         const url = `/subtask/${this.subtaskID}`;
-        console.log(`requesting ${url}`);
         const response = await this.client.delete(url);
         switch (response.status) {
             case HttpStatusCode.NoContent:
@@ -32,6 +31,9 @@ class DeleteSubtaskCommand extends RetryableHTTPRequestCommand {
 
     protected syncLocal(state: ApplicationState) {
         removeSubtask(state, this.subtaskID);
+    }
+    protected showEffectOnPageBeforeSendingToServer(): boolean {
+        return true;
     }
 }
 

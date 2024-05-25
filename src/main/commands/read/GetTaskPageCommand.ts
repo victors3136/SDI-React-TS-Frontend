@@ -20,7 +20,6 @@ class GetTaskPageCommand extends HTTPRequestCommand {
             return;
         }
         const url = `/task/all/${this.pageNumber}`;
-        console.log(`requesting ${url}`);
         let response
         try {
             response = await this.client.get(url);

@@ -8,6 +8,7 @@ import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
 import IHTTPClient from "../../requests/public/IHTTPClient";
 
 class PostSubtaskCommand extends RetryableHTTPRequestCommand {
+
     protected subtask: ISubtask;
 
     public constructor(data: SubtaskBase, client?: IHTTPClient) {
@@ -17,7 +18,6 @@ class PostSubtaskCommand extends RetryableHTTPRequestCommand {
 
     protected async request(state: ApplicationState): Promise<void> {
         const url = '/subtask';
-        console.log(`requesting ${url}`);
         const response = await this.client.post(url, this.subtask);
         switch (response.status) {
             case HttpStatusCode.Created:
@@ -34,6 +34,10 @@ class PostSubtaskCommand extends RetryableHTTPRequestCommand {
 
     protected syncLocal(state: ApplicationState) {
         addSubtaskToState(state, this.subtask);
+    }
+
+    protected showEffectOnPageBeforeSendingToServer(): boolean {
+        return false;
     }
 }
 

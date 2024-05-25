@@ -18,11 +18,9 @@ export class RegisterCommand extends HTTPRequestCommand {
 
     async execute(state: ApplicationState) {
         const url = '/user/register';
-        console.log(url);
         const registerRequestBody = this.user;
         let response: { data: string, status: number };
         response = await this.client.post(url, registerRequestBody);
-        console.log(response);
         if (!response.data) {
             state.setErrorMessage("Response has no body? This is strange...");
             return;

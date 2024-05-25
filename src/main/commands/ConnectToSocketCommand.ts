@@ -9,11 +9,11 @@ import ITask from "../../state/public/ITask";
 class ConnectToSocketCommand implements ICommand {
     public execute = (state: ApplicationState) => {
         if (!process.env.REACT_APP_BACKEND_SOCKET_URL) {
-            console.warn("No url specified for the websocket");
+            window.alert("No url specified for the websocket");
             return;
         }
         if (!process.env.REACT_APP_BACKEND_SOCKET_ENDPOINT) {
-            console.warn("No endpoint specified for the websocket");
+            window.alert("No endpoint specified for the websocket");
             return;
         }
         const url = process.env.REACT_APP_BACKEND_SOCKET_URL;
