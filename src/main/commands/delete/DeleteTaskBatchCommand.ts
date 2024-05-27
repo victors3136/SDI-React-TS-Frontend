@@ -10,7 +10,9 @@ class DeleteTaskBatchCommand extends RetryableHTTPRequestCommand {
 
     public constructor(taskIDS: string[], client?: IHTTPClient) {
         super(client);
-        this.taskIDS = taskIDS;
+        const set = new Set(taskIDS);
+        // @ts-ignore
+        this.taskIDS = [...set];
     }
 
     protected async request(state: ApplicationState) {
@@ -18,7 +20,7 @@ class DeleteTaskBatchCommand extends RetryableHTTPRequestCommand {
             return;
         }
         const url = '/task/batch';
-        const payload = {data: this.taskIDS};
+        const payload = this.taskIDS;
         const response = await this.client.delete(url, payload);
 
         switch (response.status) {
