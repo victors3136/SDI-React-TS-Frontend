@@ -33,9 +33,9 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
         return this.client.patch(url, data, {headers: this.headers});
     }
 
-    delete = (url: string, data?: object | undefined) => {
-        return (data ?
-            this.client.delete(url, {headers: this.headers, data})
+    delete = (url: string, payload?: object | undefined) => {
+        return (payload ?
+            this.client.delete(url, {headers: this.headers, data: payload})
             : this.client.delete(url, {headers: this.headers}));
     }
 }
