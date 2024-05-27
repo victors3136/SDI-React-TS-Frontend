@@ -22,7 +22,7 @@ export class LoginCommand extends HTTPRequestCommand {
     async execute(state: ApplicationState) {
         const url = '/user/login';
         const loginRequestBody: LoginRequestBase = {username: this.username, password: this.password};
-        let response: { data: string, status: number };
+        let response: { data: {token: string, permissions: string[]}, status: number };
         try {
             response = await this.client.post(url, loginRequestBody);
         } catch (error) {
@@ -31,8 +31,10 @@ export class LoginCommand extends HTTPRequestCommand {
         }
 
         if (response.status === HttpStatusCode.Ok) {
-            state.setJSONWebToken(response.data);
-            localStorage.setItem('jwt', response.data);
+            const {token, permissions} = response.data;
+            state.setJSONWebToken(token);
+            state.setPermissions(permissions);
+            localStorage.setItem('jwt', token);
         }
     }
 }

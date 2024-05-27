@@ -80,4 +80,8 @@ export default interface ApplicationState {
     morePagesAvailable: boolean;
 
     setMorePagesAvailable(value: boolean): void;
+
+    permissions: string[];
+
+    setPermissions(value: string[]): void;
 }

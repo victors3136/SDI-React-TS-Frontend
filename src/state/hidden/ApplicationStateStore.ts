@@ -46,5 +46,7 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     setParentTaskID: (id: string | undefined) => set({addingChildrenForATaskID: id}),
     morePagesAvailable: true,
     setMorePagesAvailable: (value: boolean) => set({morePagesAvailable: value}),
+    permissions: [],
+    setPermissions: (value: string[]) => set({permissions: value})
 }))
 export default useAppStateStore;
