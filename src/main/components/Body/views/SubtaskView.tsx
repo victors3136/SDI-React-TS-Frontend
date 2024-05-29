@@ -6,6 +6,7 @@ import {DeleteSubtaskButton} from "../buttons/DeleteSubtaskButton";
 import {ConfirmChangesToSubtaskButton} from "../buttons/ConfirmChangesToSubtaskButton";
 import {StartToEditSubtaskButton} from "../buttons/StartToEditSubtaskButton";
 import "../../../../styling/public/css/App.css";
+import {canDeleteSubtask, canEditSubtask} from "../../../../state/public/utils/permissionChecks";
 
 export const SubtaskView = (props: { state: ApplicationState, subtask: ISubtask }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -24,13 +25,13 @@ export const SubtaskView = (props: { state: ApplicationState, subtask: ISubtask 
                          onChange={change => setSubject(change.target.value)}/>
                 : <p style={{marginTop: "1rem"}}>{subject}</p>}
         <div style={{display: "inline-flex", justifyContent: "space-around", width: "100%"}}>
-            <DeleteSubtaskButton state={props.state} id={id}/>
-            {
-                isEditing
+            {canDeleteSubtask(props.state, props.subtask) && <DeleteSubtaskButton state={props.state} id={id}/>}
+            {canEditSubtask(props.state, props.subtask) &&
+                (isEditing
                     ? <ConfirmChangesToSubtaskButton state={props.state} id={id}
                                                      subtask={new Subtask({id, subject, task})}
                                                      cleanup={() => setIsEditing(false)}/>
-                    : <StartToEditSubtaskButton startEditing={() => setIsEditing(true)}/>
+                    : <StartToEditSubtaskButton startEditing={() => setIsEditing(true)}/>)
             }
         </div>
     </div>;

@@ -7,15 +7,21 @@ import {ExportSelectedButton} from "./ExportSelectedButton";
 import {ChangeStyleButton} from "./ChangeStyleButton";
 import React from "react";
 import LogoutButton from "./LogoutButton";
+import {hasAddPermission, hasDeleteBatchPermission} from "../../../state/public/utils/permissionChecks";
 
 export const AfterLoginFooter = (props: { state: ApplicationState }) =>
     <div
         className="container-fluid flex-row justify-content-evenly Button-Bar"
         style={{padding: "8px", display: "flex", height: "100%", overflow: "scroll"}}>
-        <div><AddButton/>Add</div>
+        {
+            hasAddPermission(props.state) && <div><AddButton/>Add</div>
+        }
         <div><SortByPriorityASCButton state={props.state}/>Sort</div>
         <div><SortByPriorityDESButton state={props.state}/>Reverse Sort</div>
-        <div><DeleteSelectedButton state={props.state}/>Delete Selection</div>
+        {
+            hasDeleteBatchPermission(props.state) &&
+            <div><DeleteSelectedButton state={props.state}/>Delete Selection</div>
+        }
         <div><ExportSelectedButton state={props.state}/>Export Selection</div>
         <div><ChangeStyleButton/>Change Style</div>
         <div><LogoutButton/>Logout</div>

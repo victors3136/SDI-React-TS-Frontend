@@ -1,7 +1,8 @@
 import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
-import {HttpStatusCode} from "axios";
+import axios, {HttpStatusCode} from "axios";
 import IHTTPClient from "../../requests/public/IHTTPClient";
+import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
 
 class GetSubtaskCountForTask extends HTTPRequestCommand {
     protected taskId: string;
@@ -22,25 +23,22 @@ class GetSubtaskCountForTask extends HTTPRequestCommand {
         let response;
         try {
             response = await this.client.get(url);
-        } catch (_error) {
-            state.setErrorMessage("Service unavailable");
-            HTTPRequestCommand.serverIsDown = true;
+        } catch (error) {
+            if (axios.isAxiosError(error) && !error.response) {
+                state.setErrorMessage("Server seems to be down :(\n Keeping a local session for now...");
+                HTTPRequestCommand.serverIsDown = true;
+            } else if (axios.isAxiosError(error) && error.response) {
+                handleCommandResponseProblemStatus({status: error.response.status}, state);
+            } else {
+                state.setErrorMessage("Unexpected error occurred");
+            }
             return;
         }
-        switch (response.status) {
-            case HttpStatusCode.Ok:
-                this.subtaskCount = parseInt(response.data);
-                state.setSubtaskCount(this.subtaskCount);
-                break;
-            case HttpStatusCode.BadRequest:
-                state.setErrorMessage("Request failed server-side validation");
-                break;
-            case HttpStatusCode.NotFound:
-                state.setErrorMessage("Entity could not be found");
-                break;
-            default:
-                state.setErrorMessage("Service unavailable");
-                HTTPRequestCommand.serverIsDown = true;
+        if (response.status === HttpStatusCode.Ok) {
+            this.subtaskCount = parseInt(response.data);
+            state.setSubtaskCount(this.subtaskCount);
+        } else {
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 }

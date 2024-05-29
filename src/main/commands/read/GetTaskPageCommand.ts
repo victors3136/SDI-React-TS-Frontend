@@ -3,8 +3,10 @@ import ApplicationState from "../../../state/public/ApplicationStateType";
 import Task from "../../../state/hidden/Task";
 import ITask from "../../../state/public/ITask";
 import TaskBase from "../../../state/public/TaskBase";
-import {HttpStatusCode} from "axios";
+import axios, {HttpStatusCode} from "axios";
 import IHTTPClient from "../../requests/public/IHTTPClient";
+
+import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
 
 class GetTaskPageCommand extends HTTPRequestCommand {
     protected pageNumber: number;
@@ -15,27 +17,29 @@ class GetTaskPageCommand extends HTTPRequestCommand {
     }
 
     public async execute(state: ApplicationState) {
-        if (HTTPRequestCommand.serverIsDown) {
-            state.setMorePagesAvailable(false);
-            return;
-        }
-        const url = `/task/all/${this.pageNumber}`;
-        let response
+        const url = '/task/all';
+        let response;
         try {
             response = await this.client.get(url);
-        } catch (_error) {
-            state.setErrorMessage("Service unavailable");
-            HTTPRequestCommand.serverIsDown = true;
+        } catch (error) {
+            if (axios.isAxiosError(error) && !error.response) {
+                state.setErrorMessage("Server seems to be down :(\n Keeping a local session for now...");
+                HTTPRequestCommand.serverIsDown = true;
+            } else if (axios.isAxiosError(error) && error.response) {
+                handleCommandResponseProblemStatus({status: error.response.status}, state);
+            } else {
+                state.setErrorMessage("Unexpected error occurred");
+            }
             return;
         }
         if (response.status === HttpStatusCode.Ok) {
-            const list: ITask[] = response.data.content.map((jsonChunk: TaskBase) => new Task(jsonChunk));
+            console.log(response);
+            const list: ITask[] = response.data.map((jsonChunk: TaskBase) => new Task(jsonChunk));
             state.addTasks(list);
             state.incrementPageCounter();
             state.setMorePagesAvailable(list.length !== 0);
         } else {
-            state.setErrorMessage("Service unavailable");
-            HTTPRequestCommand.serverIsDown = true;
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 }

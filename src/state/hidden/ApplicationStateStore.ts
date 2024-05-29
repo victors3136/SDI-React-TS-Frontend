@@ -47,6 +47,8 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     morePagesAvailable: true,
     setMorePagesAvailable: (value: boolean) => set({morePagesAvailable: value}),
     permissions: [],
-    setPermissions: (value: string[]) => set({permissions: value})
+    setPermissions: (value: string[]) => set({permissions: value}),
+    userID: undefined,
+    setUserID: (value: string) => set({userID: value})
 }))
 export default useAppStateStore;

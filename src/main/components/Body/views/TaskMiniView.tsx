@@ -8,6 +8,7 @@ import {DeleteButton} from "../buttons/DeleteButton";
 import {EditButton} from "../buttons/EditButton";
 import {ToggleSelectionButton} from "../buttons/ToggleSelectionButton";
 import {AddSubtaskButton} from "../buttons/AddSubtaskButton";
+import {canDeleteTask, canEditTask, hasViewPermission} from "../../../../state/public/utils/permissionChecks";
 
 export const TaskMiniView = (props: { id: string, state: ApplicationState, task: ITask }) => {
     const state = props.state;
@@ -46,11 +47,11 @@ export const TaskMiniView = (props: { id: string, state: ApplicationState, task:
             <div className="card-footer  inherit-color-scheme" style={{marginTop: "auto"}}>
                 <div className="container-fluid flex-row justify-content-evenly  inherit-color-scheme"
                      style={{padding: "8px", display: "flex", height: "100%"}}>
-                    <ViewButton state={props.state} task={props.task}/>
-                    <EditButton state={props.state} task={props.task}/>
-                    <DeleteButton state={props.state} task={props.task}/>
+                    {hasViewPermission(state) && <ViewButton state={props.state} task={props.task}/>}
+                    {canEditTask(state, props.task) && <EditButton state={props.state} task={props.task}/>}
+                    {canDeleteTask(state, props.task) && <DeleteButton state={props.state} task={props.task}/>}
                     <ToggleSelectionButton state={props.state} task={props.task}/>
-                    <AddSubtaskButton state={props.state} task={props.task}/>
+                    {canEditTask(state, props.task) && <AddSubtaskButton state={props.state} task={props.task}/>}
                 </div>
             </div>
         </div>

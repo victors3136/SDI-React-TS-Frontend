@@ -2,6 +2,7 @@ import HTTPRequestCommand from "./HTTPRequestCommand";
 import IHTTPClient from "../requests/public/IHTTPClient";
 import ApplicationState from "../../state/public/ApplicationStateType";
 import {HttpStatusCode} from "axios";
+import {handleCommandResponseProblemStatus} from "./auxilliaries/handleCommandResponseProblemStatus";
 
 interface LoginRequestBase {
     get username(): string;
@@ -22,7 +23,7 @@ export class LoginCommand extends HTTPRequestCommand {
     async execute(state: ApplicationState) {
         const url = '/user/login';
         const loginRequestBody: LoginRequestBase = {username: this.username, password: this.password};
-        let response: { data: {token: string, permissions: string[]}, status: number };
+        let response: { data: { token: string, permissions: string[], userID: string }, status: number };
         try {
             response = await this.client.post(url, loginRequestBody);
         } catch (error) {
@@ -31,10 +32,14 @@ export class LoginCommand extends HTTPRequestCommand {
         }
 
         if (response.status === HttpStatusCode.Ok) {
-            const {token, permissions} = response.data;
+            const {token, permissions, userID} = response.data;
             state.setJSONWebToken(token);
             state.setPermissions(permissions);
+            state.setUserID(userID);
+            console.log("Set user id");
             localStorage.setItem('jwt', token);
+        } else {
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 }

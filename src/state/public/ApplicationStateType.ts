@@ -84,4 +84,9 @@ export default interface ApplicationState {
     permissions: string[];
 
     setPermissions(value: string[]): void;
+
+    userID: string | undefined;
+
+    setUserID(userID: string | undefined): void;
+
 }

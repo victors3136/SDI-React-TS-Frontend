@@ -6,6 +6,7 @@ import IUser from "../../state/public/IUser";
 import UserBase from "../../state/public/UserBase";
 import User from "../../state/hidden/User";
 import {LoginCommand} from "./LoginCommand";
+import {handleCommandResponseProblemStatus} from "./auxilliaries/handleCommandResponseProblemStatus";
 
 
 export class RegisterCommand extends HTTPRequestCommand {
@@ -25,18 +26,10 @@ export class RegisterCommand extends HTTPRequestCommand {
             state.setErrorMessage("Response has no body? This is strange...");
             return;
         }
-        switch (response.status) {
-            case HttpStatusCode.Ok:
-                new LoginCommand({username: this.user.username, password: this.user.password}).execute(state);
-                break;
-            case HttpStatusCode.Unauthorized:
-                state.setErrorMessage("Username is already taken");
-                break;
-            default:
-                state.setErrorMessage(
-                    `Unhandled response status --
-                               ${response.status}\n
-                               ${response.data}`);
+        if (response.status === HttpStatusCode.Ok) {
+            new LoginCommand({username: this.user.username, password: this.user.password}).execute(state);
+        } else {
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 }

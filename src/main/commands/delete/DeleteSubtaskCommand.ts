@@ -3,6 +3,7 @@ import {HttpStatusCode} from "axios";
 import removeSubtask from "../../../state/public/utils/removeSubtask";
 import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
 import IHTTPClient from "../../requests/public/IHTTPClient";
+import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
 
 class DeleteSubtaskCommand extends RetryableHTTPRequestCommand {
     protected subtaskID: string;
@@ -15,23 +16,15 @@ class DeleteSubtaskCommand extends RetryableHTTPRequestCommand {
     protected async request(state: ApplicationState) {
         const url = `/subtask/${this.subtaskID}`;
         const response = await this.client.delete(url);
-        switch (response.status) {
-            case HttpStatusCode.NoContent:
-                break;
-            case HttpStatusCode.BadRequest:
-                state.setErrorMessage("Request failed server-side validation");
-                break;
-            case HttpStatusCode.NotFound:
-                state.setErrorMessage("Entry could not be found");
-                break;
-            default:
-                throw new Error(`Network Error: ${response.status}`);
+        if (response.status !== HttpStatusCode.NoContent) {
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 
     protected syncLocal(state: ApplicationState) {
         removeSubtask(state, this.subtaskID);
     }
+
     protected showEffectOnPageBeforeSendingToServer(): boolean {
         return true;
     }
