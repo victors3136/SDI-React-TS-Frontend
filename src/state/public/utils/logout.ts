@@ -7,5 +7,7 @@ const logout = (state: ApplicationState) => {
     state.setTasks([]);
     state.setSubtaskCount(-1);
     state.setSubtasks([]);
+    state.setUserID(undefined);
+    state.setLoginComplete(false);
 }
 export default logout;

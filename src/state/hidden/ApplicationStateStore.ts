@@ -2,6 +2,7 @@ import {create} from 'zustand'
 import ApplicationState from "../public/ApplicationStateType";
 import DarkColorSchemeProvider from "../../styling/hidden/DarkColorSchemeProvider";
 import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
+import {SimpleUser} from "../public/SimpleUser";
 
 const useAppStateStore = create<ApplicationState>((set) => ({
     jsonWebToken: undefined,
@@ -47,6 +48,12 @@ const useAppStateStore = create<ApplicationState>((set) => ({
     morePagesAvailable: true,
     setMorePagesAvailable: (value: boolean) => set({morePagesAvailable: value}),
     permissions: [],
-    setPermissions: (value: string[]) => set({permissions: value})
+    setPermissions: (value: string[]) => set({permissions: value}),
+    userID: undefined,
+    setUserID: (value: string) => set({userID: value}),
+    loginComplete: false,
+    setLoginComplete: (value: boolean) => set({loginComplete: value}),
+    users: [],
+    setUsers: (value: SimpleUser[]) => set({users: value})
 }))
 export default useAppStateStore;

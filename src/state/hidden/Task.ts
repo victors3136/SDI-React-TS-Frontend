@@ -8,6 +8,7 @@ class Task implements ITask {
     public readonly description: string;
     public readonly priority: number;
     public readonly dueDate: Date;
+    public readonly user: string;
 
     public constructor(data: TaskBase) {
         this.id = data.id ?? uuidv4();
@@ -15,6 +16,7 @@ class Task implements ITask {
         this.description = data.description || "";
         this.priority = data.priority;
         this.dueDate = data.dueDate ? new Date(data.dueDate) : new Date();
+        this.user = data.user ?? "Anonymous";
     }
 }
 

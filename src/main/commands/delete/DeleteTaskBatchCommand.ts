@@ -4,6 +4,7 @@ import {HttpStatusCode} from "axios";
 import {clearIDSelection} from "../../../state/public/utils/clearIDSelection";
 import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
 import IHTTPClient from "../../requests/public/IHTTPClient";
+import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
 
 class DeleteTaskBatchCommand extends RetryableHTTPRequestCommand {
     protected taskIDS: string[];
@@ -23,17 +24,8 @@ class DeleteTaskBatchCommand extends RetryableHTTPRequestCommand {
         const payload = this.taskIDS;
         const response = await this.client.delete(url, payload);
 
-        switch (response.status) {
-            case HttpStatusCode.NoContent:
-                break;
-            case HttpStatusCode.BadRequest:
-                state.setErrorMessage("Request failed server-side validation");
-                break;
-            case HttpStatusCode.NotFound:
-                state.setErrorMessage("Entry could not be found");
-                break;
-            default:
-                throw new Error(`Network Error: ${response.status}`);
+        if (response.status !== HttpStatusCode.NoContent) {
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 

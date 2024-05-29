@@ -10,7 +10,7 @@ const BodyComponent = (props: { state: ApplicationState }) => {
     return <div className="Body inherit-color-scheme">
         {
             (state.errorMessage && <ErrorViewComponent/>)
-            || ((!state.jsonWebToken)
+            || ((!state.loginComplete)
                 ? <BeforeLoginBody/>
                 : <AfterLoginBody state={props.state}/>)
         }

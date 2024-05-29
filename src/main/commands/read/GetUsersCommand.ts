@@ -3,23 +3,23 @@ import ApplicationState from "../../../state/public/ApplicationStateType";
 import axios, {HttpStatusCode} from "axios";
 import IHTTPClient from "../../requests/public/IHTTPClient";
 import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
+import {SimpleUser} from "../../../state/public/SimpleUser";
 
-class GetSubtaskCountForTask extends HTTPRequestCommand {
-    protected taskId: string;
-    private subtaskCount: number | undefined;
+class GetUsersCommand extends HTTPRequestCommand {
 
-    public constructor(taskId: string, client?: IHTTPClient) {
+    private users: SimpleUser[];
+
+    public constructor(client?: IHTTPClient) {
         super(client);
-        this.taskId = taskId;
-        this.subtaskCount = undefined;
+        this.users = [];
     }
 
     public async execute(state: ApplicationState) {
         if (HTTPRequestCommand.serverIsDown) {
-            state.setSubtaskCount(-1);
+            state.setUsers([]);
             return;
         }
-        const url = `/subtask/count/${this.taskId}`;
+        const url = `/user/all`;
         let response;
         try {
             response = await this.client.get(url);
@@ -35,12 +35,14 @@ class GetSubtaskCountForTask extends HTTPRequestCommand {
             return;
         }
         if (response.status === HttpStatusCode.Ok) {
-            this.subtaskCount = parseInt(response.data);
-            state.setSubtaskCount(this.subtaskCount);
+            this.users = response.data.map((jsonChunk: SimpleUser) => {
+                return {username: jsonChunk.username, role: jsonChunk.role, id: jsonChunk.id}
+            });
+            state.setUsers(this.users);
         } else {
             handleCommandResponseProblemStatus(response, state);
         }
     }
 }
 
-export default GetSubtaskCountForTask;
+export default GetUsersCommand;

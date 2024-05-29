@@ -5,6 +5,7 @@ import ApplicationState from "../../../state/public/ApplicationStateType";
 import TaskBase from "../../../state/public/TaskBase";
 import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
 import IHTTPClient from "../../requests/public/IHTTPClient";
+import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
 
 class PostTaskCommand extends RetryableHTTPRequestCommand {
 
@@ -18,16 +19,11 @@ class PostTaskCommand extends RetryableHTTPRequestCommand {
     protected async request(state: ApplicationState) {
         const url = '/task';
         const response = await this.client.post(url, this.task);
-        switch (response.status) {
-            case HttpStatusCode.Created:
-                const taskId = response.data;
-                this.task = new Task({...this.task, id: taskId})
-                break;
-            case HttpStatusCode.BadRequest:
-                state.setErrorMessage('Server-side validation failed');
-                break;
-            default:
-                throw new Error(`Network Error: ${response.status}`);
+        if (response.status === HttpStatusCode.Created) {
+            const taskId = response.data;
+            this.task = new Task({...this.task, id: taskId});
+        } else {
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 

@@ -6,6 +6,7 @@ import {HttpStatusCode} from "axios";
 import SubtaskBase from "../../../state/public/SubtaskBase";
 import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
 import IHTTPClient from "../../requests/public/IHTTPClient";
+import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
 
 class PostSubtaskCommand extends RetryableHTTPRequestCommand {
 
@@ -18,17 +19,13 @@ class PostSubtaskCommand extends RetryableHTTPRequestCommand {
 
     protected async request(state: ApplicationState): Promise<void> {
         const url = '/subtask';
-        const response = await this.client.post(url, this.subtask);
-        switch (response.status) {
-            case HttpStatusCode.Created:
-                const subtaskId = response.data.id;
-                this.subtask = new Subtask({...this.subtask, id: subtaskId});
-                break;
-            case HttpStatusCode.BadRequest:
-                state.setErrorMessage('Server-side validation failed');
-                break;
-            default:
-                throw new Error(`Network Error: ${response.status}`);
+        let response: { status: number, data: { id: string } };
+        response = await this.client.post(url, this.subtask);
+        if (response.status === HttpStatusCode.Created) {
+            const subtaskId = response.data.id;
+            this.subtask = new Subtask({...this.subtask, id: subtaskId});
+        } else {
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 

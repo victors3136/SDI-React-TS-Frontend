@@ -8,6 +8,7 @@ import {TaskEditComponent} from "./forms/TaskEditComponent";
 import {SubtaskAddComponent} from "./forms/SubtaskAddComponent";
 import {ListViewComponent} from "./views/ListViewComponent";
 import {LoadingSpinnerComponent} from "./misc/LoadingSpinnerComponent";
+import {UserListView} from "./views/UserListView";
 
 const AfterLoginBody = (props: { state: ApplicationState }) => {
     useEffect(() => {
@@ -25,6 +26,7 @@ const AfterLoginBody = (props: { state: ApplicationState }) => {
             || (state.viewedTask && <TaskViewComponent/>)
             || (state.editedTask && <TaskEditComponent/>)
             || (state.addingChildrenForATaskID && <SubtaskAddComponent/>)
+            || (state.users.length && <UserListView/>)
             || (state.tasks.length && <ListViewComponent/>)
             || (state.morePagesAvailable && <LoadingSpinnerComponent/>)
             || (<h1> Add a task by pressing the + button! </h1>)

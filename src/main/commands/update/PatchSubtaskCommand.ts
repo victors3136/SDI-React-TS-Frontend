@@ -5,6 +5,7 @@ import ISubtask from "../../../state/public/ISubtask";
 import Subtask from "../../../state/hidden/Subtask";
 import IHTTPClient from "../../requests/public/IHTTPClient";
 import {RetryableHTTPRequestCommand} from "../RetryableHTTPRequestCommand";
+import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
 
 class PatchSubtaskCommand extends RetryableHTTPRequestCommand {
     protected baseSubtaskID: string;
@@ -20,18 +21,8 @@ class PatchSubtaskCommand extends RetryableHTTPRequestCommand {
         const url = `subtask/${this.baseSubtaskID}`;
         const payload = this.updatedSubtask;
         const response = await this.client.patch(url, payload);
-        switch (response.status) {
-            case HttpStatusCode.Ok:
-                // editSubtask(state, this.updatedSubtask); -- should get handled by sync local
-                break;
-            case HttpStatusCode.BadRequest:
-                state.setErrorMessage("Request failed server-side validation");
-                break
-            case HttpStatusCode.NotFound:
-                state.setErrorMessage("Entry could not be found");
-                break;
-            default:
-                throw new Error(`Network Error: ${response.status}`);
+        if (response.status !== HttpStatusCode.Ok) {
+            handleCommandResponseProblemStatus(response, state);
         }
     }
 

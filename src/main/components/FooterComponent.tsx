@@ -15,7 +15,7 @@ const FooterComponent = (props: { state: ApplicationState }) => {
             }}>
 
             {
-                (!props.state.jsonWebToken)
+                (!props.state.loginComplete)
                     ? <BeforeLoginFooter/>
                     : <AfterLoginFooter state={props.state}/>
             }

@@ -6,9 +6,11 @@ export default interface ITask extends TaskBase {
 
     get name(): string;
 
-    get description(): string | null;
+    get description(): string | undefined;
 
     get priority(): number;
 
     get dueDate(): Date;
+
+    get user(): string | undefined;
 }
