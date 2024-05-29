@@ -10,8 +10,12 @@ export const TaskEditComponent = () => {
         return <></>
     }
     const editedTask = state.editedTask;
+    console.log(editedTask);
     return <GenericTaskForm
-        submit={(task: ITask) => new PatchTaskCommand(editedTask.id, task).execute(state)}
+        submit={(task: ITask) => {
+            console.log(task);
+            return new PatchTaskCommand(editedTask.id, task).execute(state);
+        }}
         defaultFieldValues={editedTask}
         cleanup={() => state.setEditedTask(undefined)}
     />

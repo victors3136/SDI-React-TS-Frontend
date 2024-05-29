@@ -1,6 +1,7 @@
 import ITask from "./ITask";
 import ISubtask from "./ISubtask";
 import IColorSchemeProvider from "../../styling/public/IColorSchemeProvider";
+import {SimpleUser} from "./SimpleUser";
 
 export default interface ApplicationState {
     jsonWebToken: string | undefined;
@@ -89,4 +90,11 @@ export default interface ApplicationState {
 
     setUserID(userID: string | undefined): void;
 
+    loginComplete: boolean;
+
+    setLoginComplete(value: boolean): void;
+
+    users: SimpleUser[];
+
+    setUsers(users: SimpleUser[]): void;
 }

@@ -25,7 +25,6 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
     }
 
     post = (url: string, data: object) => {
-        console.log(JSON.stringify(data));
         return this.client.post(url, data, {headers: this.headers});
     }
 

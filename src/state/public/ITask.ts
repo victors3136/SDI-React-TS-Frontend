@@ -12,5 +12,5 @@ export default interface ITask extends TaskBase {
 
     get dueDate(): Date;
 
-    get userID(): string | undefined;
+    get user(): string | undefined;
 }

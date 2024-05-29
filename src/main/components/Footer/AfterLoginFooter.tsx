@@ -7,7 +7,12 @@ import {ExportSelectedButton} from "./ExportSelectedButton";
 import {ChangeStyleButton} from "./ChangeStyleButton";
 import React from "react";
 import LogoutButton from "./LogoutButton";
-import {hasAddPermission, hasDeleteBatchPermission} from "../../../state/public/utils/permissionChecks";
+import {
+    hasAddPermission,
+    hasAssignPermission,
+    hasDeleteBatchPermission
+} from "../../../state/public/utils/permissionChecks";
+import {ViewUsersButton} from "./ViewUsersButton";
 
 export const AfterLoginFooter = (props: { state: ApplicationState }) =>
     <div
@@ -23,6 +28,10 @@ export const AfterLoginFooter = (props: { state: ApplicationState }) =>
             <div><DeleteSelectedButton state={props.state}/>Delete Selection</div>
         }
         <div><ExportSelectedButton state={props.state}/>Export Selection</div>
+        {
+            hasAssignPermission(props.state)
+            && <div><ViewUsersButton state={props.state}/>View Users</div>
+        }
         <div><ChangeStyleButton/>Change Style</div>
         <div><LogoutButton/>Logout</div>
     </div>;

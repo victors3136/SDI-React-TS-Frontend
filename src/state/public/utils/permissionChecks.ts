@@ -3,12 +3,12 @@ import ITask from "../ITask";
 import ISubtask from "../ISubtask";
 
 export const ownsTask: (state: ApplicationState, task: ITask) => boolean =
-    (state: ApplicationState, task: ITask) => task.userID === state.userID;
+    (state: ApplicationState, task: ITask) => task.user === state.userID;
 
 export const ownsSubtask: (state: ApplicationState, subtask: ISubtask) => boolean =
     (state: ApplicationState, subtask: ISubtask) => {
         const task = state.tasks.find(t => t.id === subtask.task);
-        return (task !== undefined) && (task.userID === state.userID);
+        return (task !== undefined) && (task.user === state.userID);
     }
 export const hasViewPermission: (state: ApplicationState) => boolean =
     (state: ApplicationState) => state.permissions.includes('view');

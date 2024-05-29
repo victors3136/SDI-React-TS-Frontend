@@ -4,7 +4,7 @@ interface TaskBase {
     description: string | undefined,
     priority: number,
     dueDate?: Date,
-    userID: string | undefined,
+    user: string | undefined,
 }
 
 export default TaskBase;

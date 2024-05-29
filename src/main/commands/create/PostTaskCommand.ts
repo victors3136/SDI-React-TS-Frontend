@@ -14,7 +14,6 @@ class PostTaskCommand extends RetryableHTTPRequestCommand {
     public constructor(data: TaskBase, client?: IHTTPClient) {
         super(client);
         this.task = new Task(data);
-        console.log(this.task);
     }
 
     protected async request(state: ApplicationState) {

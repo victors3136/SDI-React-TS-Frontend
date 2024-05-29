@@ -1,23 +1,25 @@
 import HTTPRequestCommand from "../HTTPRequestCommand";
 import ApplicationState from "../../../state/public/ApplicationStateType";
-import Task from "../../../state/hidden/Task";
-import ITask from "../../../state/public/ITask";
-import TaskBase from "../../../state/public/TaskBase";
 import axios, {HttpStatusCode} from "axios";
 import IHTTPClient from "../../requests/public/IHTTPClient";
-
 import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandResponseProblemStatus";
+import {SimpleUser} from "../../../state/public/SimpleUser";
 
-class GetTaskPageCommand extends HTTPRequestCommand {
-    protected pageNumber: number;
+class GetUsersCommand extends HTTPRequestCommand {
 
-    public constructor(pageNum?: number, client?: IHTTPClient) {
+    private users: SimpleUser[];
+
+    public constructor(client?: IHTTPClient) {
         super(client);
-        this.pageNumber = pageNum ?? 0;
+        this.users = [];
     }
 
     public async execute(state: ApplicationState) {
-        const url = '/task/all';
+        if (HTTPRequestCommand.serverIsDown) {
+            state.setUsers([]);
+            return;
+        }
+        const url = `/user/all`;
         let response;
         try {
             response = await this.client.get(url);
@@ -33,14 +35,14 @@ class GetTaskPageCommand extends HTTPRequestCommand {
             return;
         }
         if (response.status === HttpStatusCode.Ok) {
-            const list: ITask[] = response.data.map((jsonChunk: TaskBase) => new Task(jsonChunk));
-            state.addTasks(list);
-            state.incrementPageCounter();
-            state.setMorePagesAvailable(list.length !== 0);
+            this.users = response.data.map((jsonChunk: SimpleUser) => {
+                return {username: jsonChunk.username, role: jsonChunk.role, id: jsonChunk.id}
+            });
+            state.setUsers(this.users);
         } else {
             handleCommandResponseProblemStatus(response, state);
         }
     }
 }
 
-export default GetTaskPageCommand;
+export default GetUsersCommand;

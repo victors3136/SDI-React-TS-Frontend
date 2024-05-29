@@ -23,21 +23,20 @@ export class LoginCommand extends HTTPRequestCommand {
     async execute(state: ApplicationState) {
         const url = '/user/login';
         const loginRequestBody: LoginRequestBase = {username: this.username, password: this.password};
-        let response: { data: { token: string, permissions: string[], userID: string }, status: number };
+        let response: { data: { token: string, permissions: string[], id: string }, status: number };
         try {
             response = await this.client.post(url, loginRequestBody);
         } catch (error) {
             state.setErrorMessage("Wrong username or password");
             return;
         }
-
         if (response.status === HttpStatusCode.Ok) {
-            const {token, permissions, userID} = response.data;
+            const {token, permissions, id} = response.data;
+            state.setUserID(id);
             state.setJSONWebToken(token);
             state.setPermissions(permissions);
-            state.setUserID(userID);
-            console.log("Set user id");
             localStorage.setItem('jwt', token);
+            state.setLoginComplete(true);
         } else {
             handleCommandResponseProblemStatus(response, state);
         }

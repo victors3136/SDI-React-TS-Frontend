@@ -7,8 +7,7 @@ import PostTaskCommand from "../../../commands/create/PostTaskCommand";
 
 export const TaskAddComponent = () => {
     const state = useAppStateStore();
-    console.log("State uder id " + state.userID);
-    const defaultTask = new Task({name: "", description: "", priority: 0, userID: state.userID});
+    const defaultTask = new Task({name: "", description: "", priority: 0, user: state.userID});
     if (!state.addingTask) {
         return <h1> not adding</h1>;
     }

@@ -26,7 +26,7 @@ export const GenericTaskForm = ({submit, defaultFieldValues, cleanup}: {
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
         <div>
             <form onSubmit={() => {
-                const base: TaskBase = {name, description, priority, dueDate, userID: defaultFieldValues.userID};
+                const base: TaskBase = {name, description, priority, dueDate, user: defaultFieldValues.user};
                 if (isValidBasisForCreatingATask(base)) {
                     const task = new Task(base);
                     submit(task);
