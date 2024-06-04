@@ -14,8 +14,8 @@ class KickUserCommand extends RetryableHTTPRequestCommand {
     }
 
     protected async request(state: ApplicationState) {
-        const url = `/user/${this.userID}`;
-        console.log(url);
+        const url = `/user/kick/${this.userID}`;
+        console.log("url");
         const response = await this.client.delete(url);
         if (response.status !== HttpStatusCode.NoContent) {
             handleCommandResponseProblemStatus(response, state);

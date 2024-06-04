@@ -13,10 +13,16 @@ export const UserViewComponent = (props: { subject: SimpleUser }) => {
 
     return editing
         ? (<UserRoleForm subject={props.subject} onClose={closeForm}/>)
-        : (<div style={{justifyContent: "space-between", width: "100%", flexDirection: "column"}}>
+        : (<div style={{justifyContent: "space-between", width: "100%", flexDirection: "column", marginTop: "1.5rem"}}>
             <p> {user.username}</p>
-            {hasAssignPermission(state) && <button onClick={() => setEditing(true)}>Change Role</button>}
+            {hasAssignPermission(state) && <button style={{
+                backgroundColor: state.colorSchemeProvider.accentColor(),
+                color: state.colorSchemeProvider.textColor()
+            }} onClick={() => setEditing(true)}>Change Role</button>}
             {hasKickPermission(state) &&
-                <button onClick={() => new KickUserCommand(props.subject.id).execute(state)}>Kick</button>}
+                <button style={{
+                    backgroundColor: state.colorSchemeProvider.accentColor(),
+                    color: state.colorSchemeProvider.textColor()
+                }} onClick={() => new KickUserCommand(props.subject.id).execute(state)}>Kick</button>}
         </div>);
 }
