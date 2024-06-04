@@ -10,5 +10,5 @@ export const WelcomeMessage = () =>
         justifyContent: "space-around"
     }}>
         <h1>Welcome! Login or register to continue</h1>
-        <img id="wizard" src={image} alt="logo" style={{width: "20vh", height: "20vh"}}/>
+        {/*<img id="wizard" src={image} alt="logo" style={{width: "20vh", height: "20vh"}}/>*/}
     </div>;
