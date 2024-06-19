@@ -6,17 +6,12 @@ import ITask from "../../../../state/public/ITask";
 
 export const TaskEditComponent = () => {
     const state = useAppStateStore();
-    if (!state.editedTask) {
-        return <></>
-    }
     const editedTask = state.editedTask;
-    console.log(editedTask);
-    return <GenericTaskForm
-        submit={(task: ITask) => {
-            console.log(task);
-            return new PatchTaskCommand(editedTask.id, task).execute(state);
-        }}
-        defaultFieldValues={editedTask}
-        cleanup={() => state.setEditedTask(undefined)}
-    />
+    return (!editedTask
+        ? <></>
+        : <GenericTaskForm
+            submit={(task: ITask) => new PatchTaskCommand(editedTask.id, task).execute(state)}
+            defaultFieldValues={editedTask}
+            cleanup={() => state.setEditedTask(undefined)}
+        />);
 }

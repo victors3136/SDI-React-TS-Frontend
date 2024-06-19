@@ -3,7 +3,7 @@ import ApplicationState from "../../state/public/ApplicationStateType";
 import HTTPRequestCommand from "./HTTPRequestCommand";
 import axios from "axios";
 
-import {handleCommandResponseProblemStatus} from "../commands/auxilliaries/handleCommandResponseProblemStatus";
+import {handleCommandResponseProblemStatus} from "./auxilliaries/handleCommandResponseProblemStatus";
 
 export abstract class RetryableHTTPRequestCommand extends HTTPRequestCommand {
 

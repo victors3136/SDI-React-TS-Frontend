@@ -3,7 +3,7 @@ import axios, {AxiosInstance} from "axios";
 
 class AxiosHTTPClientAdapter implements IHTTPClient {
     private client: AxiosInstance;
-    private readonly headers;
+    private readonly headers: { 'Content-Type': 'application/json', 'Authorization'?: string };
 
     private constructor() {
         const token = localStorage.getItem('jwt');

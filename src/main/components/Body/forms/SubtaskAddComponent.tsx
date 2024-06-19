@@ -12,10 +12,7 @@ export const SubtaskAddComponent = () => {
     }
     const submit = (data: SubtaskBase) => new PostSubtaskCommand(data).execute(state);
     const cleanup = () => state.setParentTaskID(undefined);
-    return <>
-        <h1> We are subtasking so hard rn ... </h1>
-        <GenericSubtaskForm submit={submit}
+    return <GenericSubtaskForm submit={submit}
                             defaultFieldValues={new Subtask({subject: "", task: taskID})}
-                            cleanup={cleanup}/>
-    </>
+                            cleanup={cleanup}/>;
 }

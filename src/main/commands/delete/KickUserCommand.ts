@@ -6,11 +6,9 @@ import {handleCommandResponseProblemStatus} from "../auxilliaries/handleCommandR
 import removeUser from "../../../state/public/utils/removeUser";
 
 class KickUserCommand extends RetryableHTTPRequestCommand {
-    protected userID: string;
 
-    public constructor(userID: string, client?: IHTTPClient) {
+    public constructor(protected userID: string, client?: IHTTPClient) {
         super(client);
-        this.userID = userID;
     }
 
     protected async request(state: ApplicationState) {
