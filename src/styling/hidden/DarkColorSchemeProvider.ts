@@ -5,10 +5,10 @@ class DarkColorSchemeProvider implements IColorSchemeProvider {
     textColor = () => "#9eb4e6";
     backgroundColor = () => "#1d2c40";
     accentColor = () => "#00618f";
-    headerBgColor = () => "#885d1b";
-    maxPriorityColor = () => "#950303";
-    minPriorityColor = () => "#338703";
-    errorColor = () => "#aaff00";
+    headerBgColor = () => "#464d4e";
+    maxPriorityColor = () => "#050a12";
+    minPriorityColor = () => "#263447";
+    errorColor = () => "#b83f1a";
 
     private static instance: IColorSchemeProvider;
 

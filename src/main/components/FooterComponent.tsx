@@ -10,8 +10,8 @@ const FooterComponent = (props: { state: ApplicationState }) => {
             style={{
                 height: "4rem",
                 width: "100%",
-                borderTop: "4px solid",
-                boxShadow: "-5px -5px 10px"
+                borderTop: "2px solid",
+                boxShadow: "-1px -1px 10px"
             }}>
 
             {

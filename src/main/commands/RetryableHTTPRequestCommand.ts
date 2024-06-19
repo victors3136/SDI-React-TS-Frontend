@@ -1,9 +1,7 @@
 import IHTTPClient from "../requests/public/IHTTPClient";
 import ApplicationState from "../../state/public/ApplicationStateType";
 import HTTPRequestCommand from "./HTTPRequestCommand";
-import axios from "axios";
-
-import {handleCommandResponseProblemStatus} from "../commands/auxilliaries/handleCommandResponseProblemStatus";
+import {handleCommandResponseProblemStatus} from "./auxilliaries/handleCommandResponseProblemStatus";
 
 export abstract class RetryableHTTPRequestCommand extends HTTPRequestCommand {
 
@@ -27,17 +25,19 @@ export abstract class RetryableHTTPRequestCommand extends HTTPRequestCommand {
         }
         try {
             await this.request(state);
-        } catch (error) {
-            if (axios.isAxiosError(error) && !error.response) {
+        } catch (error: any) {
+            const networkError: boolean = this.client.isNetworkError(error);
+            if (!networkError) {
+                state.setErrorMessage("Unexpected error occurred");
+                return;
+            }
+            if (!error.response) {
                 state.setErrorMessage("Server seems to be down :(\n Keeping a local session for now...");
                 HTTPRequestCommand.serverIsDown = true;
                 RetryableHTTPRequestCommand.enqueue(this, state);
-            } else if (axios.isAxiosError(error) && error.response) {
-                handleCommandResponseProblemStatus({status: error.response.status}, state);
-            } else {
-                state.setErrorMessage("Unexpected error occurred");
+                return;
             }
-            return;
+            handleCommandResponseProblemStatus({status: error.response.status}, state);
         }
         if (!this.showEffectOnPageBeforeSendingToServer()) {
             this.syncLocal(state);

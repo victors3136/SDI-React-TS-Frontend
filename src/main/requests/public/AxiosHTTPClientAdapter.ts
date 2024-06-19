@@ -3,7 +3,7 @@ import axios, {AxiosInstance} from "axios";
 
 class AxiosHTTPClientAdapter implements IHTTPClient {
     private client: AxiosInstance;
-    private readonly headers;
+    private readonly headers: { 'Content-Type': 'application/json', 'Authorization'?: string };
 
     private constructor() {
         const token = localStorage.getItem('jwt');
@@ -16,27 +16,20 @@ class AxiosHTTPClientAdapter implements IHTTPClient {
         });
     }
 
-    public static instantiate: () => IHTTPClient = () => {
-        return new AxiosHTTPClientAdapter();
-    }
+    public static instantiate = () => new AxiosHTTPClientAdapter();
 
-    get = (url: string) => {
-        return this.client.get(url, {headers: this.headers});
-    }
+    get = (url: string) => this.client.get(url, {headers: this.headers})
 
-    post = (url: string, data: object) => {
-        return this.client.post(url, data, {headers: this.headers});
-    }
+    post = (url: string, data: object) => this.client.post(url, data, {headers: this.headers})
 
-    patch = (url: string, data: object) => {
-        return this.client.patch(url, data, {headers: this.headers});
-    }
+    patch = (url: string, data: object) => this.client.patch(url, data, {headers: this.headers})
 
-    delete = (url: string, payload?: object | undefined) => {
-        return (payload ?
+    delete = (url: string, payload?: object | undefined) =>
+        (payload ?
             this.client.delete(url, {headers: this.headers, data: payload})
             : this.client.delete(url, {headers: this.headers}));
-    }
+
+    isNetworkError = (error: object) => axios.isAxiosError(error);
 }
 
 export default AxiosHTTPClientAdapter;

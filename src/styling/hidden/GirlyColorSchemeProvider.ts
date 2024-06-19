@@ -2,13 +2,13 @@ import IColorSchemeProvider from "../public/IColorSchemeProvider";
 
 class GirlyColorSchemeProvider implements IColorSchemeProvider {
 
-    textColor = () => "#170112";
-    backgroundColor = () => "#954f80";
-    accentColor = () => "#ae0048";
-    headerBgColor = () => "#8d56b6";
-    maxPriorityColor = () => "#710050";
-    minPriorityColor = () => "#442b91";
-    errorColor = () => "#ff01e4";
+    textColor = () => "#eda8de";
+    backgroundColor = () => "#5e3352";
+    accentColor = () => "#8c043c";
+    headerBgColor = () => "#522c6e";
+    maxPriorityColor = () => "#653c59";
+    minPriorityColor = () => "#5c3c65";
+    errorColor = () => "#ff0188";
 
     private static instance: IColorSchemeProvider;
 

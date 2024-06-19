@@ -15,14 +15,14 @@ const isValidBasisForCreatingATask = (fields: TaskBase) =>
 
 export const GenericTaskForm = ({submit, defaultFieldValues, cleanup}: {
     submit: (task: ITask) => void,
-    defaultFieldValues: ITask,
+    defaultFieldValues: TaskBase,
     cleanup: () => void
 }) => {
     const {setErrorMessage} = useAppStateStore.getState();
     const [name, setName] = useState(defaultFieldValues.name);
     const [description, setDescription] = useState(defaultFieldValues.description ?? "");
     const [priority, setPriority] = useState(defaultFieldValues.priority);
-    const [dueDate, setDueDate] = useState(defaultFieldValues.dueDate);
+    const [dueDate, setDueDate] = useState(defaultFieldValues.dueDate ?? new Date());
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
         <div>
             <form onSubmit={() => {

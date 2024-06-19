@@ -7,7 +7,7 @@ export const AddSubtaskButton = (props: { state: ApplicationState, task: ITask }
     const {state, task} = props;
     return <button
         onClick={() => state.setParentTaskID(task.id)}
-        className="Only-Icon-Button">
+        className="Only-Icon-Button inherit-color-scheme">
         <BiPlus className="Larger-Icon"/>
     </button>
 }

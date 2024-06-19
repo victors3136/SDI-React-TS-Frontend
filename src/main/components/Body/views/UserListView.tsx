@@ -7,9 +7,9 @@ export const UserListView = () => {
     const state = useAppStateStore();
     const cleanup = () => state.setUsers([]);
     return <div className="Div-Covering-The-Whole-Screen-Semitransparent">
-        <div style={{width: "100vw"}}>
+        <div style={{fontSize: "2rem", width: "100vw"}}>
             <h1 style={{
-                color: state.colorSchemeProvider.errorColor(),
+                color: state.colorSchemeProvider.textColor(),
                 wordBreak: "break-word",
                 textJustify: "inter-word",
                 overflowX: "scroll",

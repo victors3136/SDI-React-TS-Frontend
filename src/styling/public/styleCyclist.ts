@@ -3,11 +3,12 @@ import EdgyColorSchemeProvider from "../hidden/EdgyColorSchemeProvider";
 import NatureColorSchemeProvider from "../hidden/NatureColorSchemeProvider";
 import BeehiveColorSchemeProvider from "../hidden/BeehiveColorSchemeProvider";
 import DarkColorSchemeProvider from "../hidden/DarkColorSchemeProvider";
+import GirlyColorSchemeProvider from "../hidden/GirlyColorSchemeProvider";
 
 const colorSchemeProviders = [
     DarkColorSchemeProvider.instantiate(),
     LightColorSchemeProvider.instantiate(),
-    // GirlyColorSchemeProvider.instantiate(),
+    GirlyColorSchemeProvider.instantiate(),
     EdgyColorSchemeProvider.instantiate(),
     NatureColorSchemeProvider.instantiate(),
     BeehiveColorSchemeProvider.instantiate()
