@@ -3,11 +3,11 @@ import IColorSchemeProvider from "../public/IColorSchemeProvider";
 class BeehiveColorSchemeProvider implements IColorSchemeProvider {
 
     textColor = () => "#272118";
-    backgroundColor = () => "#ffa400";
+    backgroundColor = () => "#8a6a30";
     accentColor = () => "#593902";
-    headerBgColor = () => "#d8ad00";
-    maxPriorityColor = () => "#9c2b00";
-    minPriorityColor = () => "#85752e";
+    headerBgColor = () => "#d87300";
+    maxPriorityColor = () => "#915943";
+    minPriorityColor = () => "#734532";
     errorColor = () => "#ff0000";
     private static instance: IColorSchemeProvider;
 

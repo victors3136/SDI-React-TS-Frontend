@@ -6,6 +6,6 @@ import React from "react";
 
 export const DeleteButton = (props: { state: ApplicationState, task: ITask }) =>
     <button onClick={() => new DeleteTaskCommand(props.task.id).execute(props.state)}
-            className="Only-Icon-Button">
+            className="Only-Icon-Button inherit-color-scheme">
         <MdDelete className="Larger-Icon"/>
     </button>

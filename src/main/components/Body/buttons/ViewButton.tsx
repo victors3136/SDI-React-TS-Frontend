@@ -11,6 +11,6 @@ export const ViewButton = (props: { state: ApplicationState, task: ITask }) =>
         new GetSubtaskCountForTask(props.task.id).execute(props.state);
         new GetSubtasksForTask(props.task.id).execute(props.state);
     }}
-            className="Only-Icon-Button">
+            className="Only-Icon-Button inherit-color-scheme">
         <FaRegEye className="Larger-Icon"/>
     </button>

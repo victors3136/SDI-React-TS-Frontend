@@ -9,7 +9,7 @@ export const ToggleSelectionButton = (props: { state: ApplicationState, task: IT
     const state = props.state;
     const id = props.task.id;
     return <button onClick={() => toggleId(state, id)}
-                   className="Only-Icon-Button">
+                   className="Only-Icon-Button inherit-color-scheme">
         {
             state.selectedTaskIDs.has(id)
                 ? <FaToggleOn className="Larger-Icon"/>

@@ -2,13 +2,13 @@ import IColorSchemeProvider from "../public/IColorSchemeProvider";
 
 class EdgyColorSchemeProvider implements IColorSchemeProvider {
 
-    textColor = () => "#ff0000";
-    backgroundColor = () => "#320207";
-    accentColor = () => "#3bff00";
+    textColor = () => "#aaa6a6";
+    backgroundColor = () => "#37292a";
+    accentColor = () => "#154e04";
     headerBgColor = () => "#555454";
-    maxPriorityColor = () => "#610101";
-    minPriorityColor = () => "#064200";
-    errorColor = () => "#e1e1e1";
+    maxPriorityColor = () => "#510202";
+    minPriorityColor = () => "#40074c";
+    errorColor = () => "#b18103";
 
     private static instance: IColorSchemeProvider;
 

@@ -2,12 +2,12 @@ import IColorSchemeProvider from "../public/IColorSchemeProvider";
 
 class NatureColorSchemeProvider implements IColorSchemeProvider {
 
-    textColor = () => "#000000";
+    textColor = () => "#2c202c";
     backgroundColor = () => "#558546";
     accentColor = () => "#ac4d04";
     headerBgColor = () => "#437500";
-    maxPriorityColor = () => "#d2ff00";
-    minPriorityColor = () => "#513100";
+    maxPriorityColor = () => "#86914c";
+    minPriorityColor = () => "#679e53";
     errorColor = () => "#cc3000";
 
     private static instance: IColorSchemeProvider;
