@@ -27,7 +27,6 @@ body {
 }
 
 .TitleBox {
-    border-radius: .5rem;
     padding: 1rem;
 }
 
@@ -57,7 +56,6 @@ body {
 
 .Entry-View {
     border: 3px solid;
-    box-shadow: 2px 2px 5px;
 }
 
 .Only-Icon-Button {
@@ -133,7 +131,6 @@ body {
     background-color: #3c464f;
     color: silver;
     padding: 20px;
-    border-radius: 8px;
     min-width: 300px;
     max-width: 600px;
     overflow: auto;

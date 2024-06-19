@@ -20,9 +20,7 @@ export const TaskMiniView = (props: { id: string, state: ApplicationState, task:
             style={{
                 color: colorSchemeProvider.textColor(),
                 backgroundColor: priorityColorProvider(priority, colorSchemeProvider),
-                border: "2px solid " + colorSchemeProvider.accentColor(),
-                boxShadow: colorSchemeProvider.accentColor(),
-                borderRadius: "5px",
+                borderRadius: "0",
                 display: "flex",
                 flexDirection: "column",
                 minHeight: "100%"
